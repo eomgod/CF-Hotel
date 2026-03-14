@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CF Hotel — Welcome</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Sans+JP:wght@300;400&family=Noto+Serif+SC:wght@300;400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root {
+  --cream:#FAF6EF; --gold:#C9A96E; --gold-dark:#9A7440;
+  --navy:#1A2535; --charcoal:#2C2C2C; --muted:#8A7F72; --white:#FFFDF8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+
+/* ── 모드 전환 ── */
+.welcome-page { display:block; }
+.print-page   { display:none; }
+
+body {
+  background:var(--cream);
+  color:var(--charcoal);
+  font-family:'Noto Sans KR',sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+body::before {
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 10%,rgba(201,169,110,.13) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 90%,rgba(26,37,53,.07) 0%,transparent 60%);
+}
+.wrap{position:relative;z-index:1;max-width:500px;margin:0 auto;padding:0 0 80px;}
+
+/* ── 헤더 ── */
+.hotel-header{text-align:center;padding:56px 24px 36px;animation:fadeDown .9s ease both;}
+.emblem{
+  width:68px;height:68px;margin:0 auto 18px;
+  border:2px solid var(--gold);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;position:relative;
+}
+.emblem::before{
+  content:'';position:absolute;inset:5px;
+  border:1px solid rgba(201,169,110,.35);border-radius:50%;
+}
+.emblem-inner{font-size:26px;}
+.hotel-name{
+  font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;
+  letter-spacing:8px;color:var(--navy);line-height:1;
+}
+.hotel-loc{font-size:10px;letter-spacing:4px;color:var(--gold);margin-top:7px;text-transform:uppercase;}
+
+/* ── 언어 ── */
+.lang-section{padding:0 20px 28px;animation:fadeUp .8s .15s ease both;}
+.lang-label{text-align:center;font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:12px;}
+.lang-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.lang-btn{
+  border:1.5px solid rgba(201,169,110,.5);border-radius:12px;padding:11px 4px;
+  text-align:center;cursor:pointer;background:rgba(201,169,110,.04);transition:all .22s;
+}
+.lang-btn.active,.lang-btn:hover{background:var(--gold);border-color:var(--gold);}
+.lang-btn .flag{font-size:20px;display:block;}
+.lang-btn .lname{font-size:10px;color:var(--gold-dark);margin-top:3px;display:block;font-weight:500;transition:color .22s;}
+.lang-btn.active .lname,.lang-btn:hover .lname{color:#fff;}
+
+.divider{display:flex;align-items:center;gap:12px;padding:0 24px 28px;}
+.divider-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.divider-icon{color:var(--gold);font-size:13px;letter-spacing:2px;}
+
+/* ── 콘텐츠 ── */
+.content{display:none;padding:0 24px;animation:fadeUp .5s ease both;}
+.content.show{display:block;}
+.welcome-msg{text-align:center;margin-bottom:28px;}
+.welcome-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-style:italic;color:var(--navy);line-height:1.2;margin-bottom:10px;}
+.welcome-text{font-size:14px;line-height:1.9;color:#555;}
+
+.info-grid{display:flex;flex-direction:column;gap:12px;margin-bottom:28px;}
+.info-card{
+  background:rgba(255,253,248,.9);border:1px solid rgba(201,169,110,.2);
+  border-radius:14px;padding:16px 18px;display:flex;gap:14px;align-items:flex-start;
+  box-shadow:0 2px 12px rgba(201,169,110,.06);
+}
+.info-icon{
+  width:38px;height:38px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;
+}
+.info-ttl{font-size:11px;letter-spacing:2px;color:var(--gold-dark);text-transform:uppercase;margin-bottom:4px;font-weight:500;}
+.info-val{font-size:14px;line-height:1.7;color:var(--charcoal);}
+
+.review-section{
+  background:linear-gradient(135deg,var(--navy) 0%,#253147 100%);
+  border-radius:18px;padding:28px 22px;text-align:center;margin-bottom:24px;position:relative;overflow:hidden;
+}
+.review-section::before{content:'★';position:absolute;font-size:120px;color:rgba(201,169,110,.06);top:-20px;right:-20px;line-height:1;}
+.review-badge{
+  display:inline-block;background:rgba(201,169,110,.15);border:1px solid rgba(201,169,110,.3);
+  border-radius:20px;padding:4px 14px;font-size:10px;letter-spacing:3px;color:var(--gold);
+  text-transform:uppercase;margin-bottom:14px;
+}
+.review-title{font-family:'Cormorant Garamond',serif;font-size:22px;color:#fff;line-height:1.4;margin-bottom:10px;}
+.review-text{font-size:13px;color:rgba(255,255,255,.65);line-height:1.8;margin-bottom:18px;}
+.review-stars{font-size:22px;color:var(--gold);letter-spacing:4px;margin-bottom:16px;}
+.review-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.review-btn{
+  display:flex;align-items:center;gap:7px;padding:10px 18px;border-radius:24px;
+  cursor:pointer;font-size:12px;font-weight:500;text-decoration:none;transition:all .2s;border:none;
+}
+.btn-google{background:var(--gold);color:white;}
+.btn-naver{background:#03C75A;color:white;}
+.btn-google:hover{background:var(--gold-dark);}
+.btn-naver:hover{background:#02a34a;}
+
+.gift-msg-box{background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.2);border-radius:14px;padding:18px 20px;text-align:center;}
+.gift-icon{font-size:28px;margin-bottom:8px;}
+.gift-txt{font-size:13px;line-height:1.8;color:#666;}
+.gift-em{color:var(--gold-dark);font-weight:500;}
+
+.hotel-footer{text-align:center;padding:32px 24px 0;border-top:1px solid rgba(201,169,110,.2);margin-top:32px;}
+.footer-name{font-family:'Cormorant Garamond',serif;font-size:20px;letter-spacing:5px;color:var(--navy);margin-bottom:4px;}
+.footer-addr{font-size:11px;color:var(--muted);}
+
+/* ── 인쇄 카드 버튼 (하단 플로팅) ── */
+.float-btn{
+  position:fixed;bottom:24px;right:20px;z-index:999;
+  background:var(--navy);color:white;border:none;border-radius:30px;
+  padding:12px 20px;font-size:12px;cursor:pointer;
+  font-family:'Noto Sans KR',sans-serif;
+  box-shadow:0 4px 20px rgba(26,37,53,.3);
+  display:flex;align-items:center;gap:6px;
+  letter-spacing:.5px;
+}
+
+/* ═══════════════════════════════════════
+   인쇄 카드 페이지
+═══════════════════════════════════════ */
+.print-page{
+  background:#E8E3D9;
+  min-height:100vh;
+  padding:32px 20px;
+  display:flex;flex-direction:column;align-items:center;gap:20px;
+}
+
+.print-topbar{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;
+  background:white;border-radius:14px;padding:14px 20px;
+  max-width:680px;width:100%;
+  box-shadow:0 2px 12px rgba(0,0,0,.07);
+}
+.print-topbar label{font-size:12px;color:#888;white-space:nowrap;}
+.print-topbar input{
+  flex:1;min-width:180px;border:1.5px solid #ddd;border-radius:8px;
+  padding:8px 12px;font-size:12px;outline:none;font-family:inherit;
+}
+.print-topbar input:focus{border-color:var(--gold);}
+.tb-btn{
+  background:var(--gold);color:white;border:none;border-radius:8px;
+  padding:8px 14px;font-size:11px;cursor:pointer;font-family:inherit;white-space:nowrap;
+}
+.tb-btn.dark{background:var(--navy);}
+.back-btn{
+  background:transparent;border:1.5px solid var(--navy);color:var(--navy);
+  border-radius:8px;padding:8px 14px;font-size:11px;cursor:pointer;font-family:inherit;
+}
+
+.cards-grid{
+  display:grid;grid-template-columns:repeat(2,260px);gap:16px;
+  max-width:560px;
+}
+
+/* 카드 */
+.p-card{
+  width:260px;background:#FAF6EF;border-radius:18px;
+  overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.12);
+}
+.p-card-hd{
+  background:linear-gradient(135deg,#1A2535 0%,#253147 100%);
+  padding:18px 16px 14px;text-align:center;position:relative;overflow:hidden;
+}
+.p-card-hd::before{
+  content:'';position:absolute;width:100px;height:100px;border-radius:50%;
+  border:1px solid rgba(201,169,110,.12);top:-30px;right:-20px;
+}
+.p-hname{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:6px;color:#FAF6EF;position:relative;z-index:1;line-height:1;}
+.p-hloc{font-size:8px;letter-spacing:3px;color:#C9A96E;margin-top:4px;text-transform:uppercase;position:relative;z-index:1;}
+.p-goldline{width:36px;height:1px;background:linear-gradient(90deg,transparent,#C9A96E,transparent);margin:8px auto 0;position:relative;z-index:1;}
+
+.p-body{padding:14px 16px 16px;}
+.p-welcome{text-align:center;margin-bottom:12px;}
+.p-w1{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:#1A2535;letter-spacing:1px;}
+.p-w2{font-size:8px;color:#C9A96E;letter-spacing:2px;text-transform:uppercase;margin-top:2px;}
+
+.p-qr-wrap{
+  background:white;border:1px solid rgba(201,169,110,.2);
+  border-radius:10px;padding:12px;
+  display:flex;flex-direction:column;align-items:center;gap:7px;margin-bottom:10px;
+}
+.p-qr-box{width:110px;height:110px;}
+.p-qr-box canvas,.p-qr-box img{width:110px!important;height:110px!important;}
+.p-langs{display:flex;gap:3px;flex-wrap:wrap;justify-content:center;}
+.p-lang{
+  background:rgba(201,169,110,.1);border:1px solid rgba(201,169,110,.25);
+  border-radius:5px;padding:2px 6px;font-size:8px;color:#9A7440;font-weight:500;
+}
+.p-scan{font-size:8px;color:#BBB;text-align:center;}
+
+.p-gift{
+  background:linear-gradient(135deg,rgba(201,169,110,.09),rgba(201,169,110,.04));
+  border:1px solid rgba(201,169,110,.18);border-radius:9px;
+  padding:9px 11px;text-align:center;margin-bottom:9px;
+}
+.p-gift-icon{font-size:14px;margin-bottom:2px;}
+.p-gift-msg{font-size:9px;line-height:1.7;color:#666;}
+.p-gift-msg strong{color:#9A7440;}
+
+.p-review{background:#1A2535;border-radius:9px;padding:9px 11px;text-align:center;}
+.p-stars{font-size:12px;color:#C9A96E;letter-spacing:2px;margin-bottom:2px;}
+.p-rtxt{font-size:8px;color:rgba(255,255,255,.65);line-height:1.6;}
+.p-rtxt strong{color:#C9A96E;}
+
+.p-footer{
+  border-top:1px solid rgba(201,169,110,.15);padding:7px 16px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.p-faddr{font-size:7px;color:#BBB;}
+.p-flogo{font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:2px;color:#C9A96E;}
+
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+@media print{
+  .welcome-page,.float-btn{display:none!important;}
+  .print-page{display:flex!important;background:white;padding:6mm;gap:6mm;}
+  .print-topbar,.back-btn,.tb-btn{display:none!important;}
+  .p-card{box-shadow:none;border:1px solid #ddd;}
+  .cards-grid{gap:5mm;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ 웰컴 페이지 ══════════════ -->
+<div class="welcome-page" id="welcomePage">
+<div class="wrap">
+  <div class="hotel-header">
+    <div class="emblem"><div class="emblem-inner">🏨</div></div>
+    <div class="hotel-name">CF HOTEL</div>
+    <div class="hotel-loc">Chungmuro · Seoul</div>
+  </div>
+
+  <div class="lang-section">
+    <div class="lang-label">Select Language / 언어 선택</div>
+    <div class="lang-grid">
+      <div class="lang-btn active" onclick="setLang('ko')"><span class="flag">🇰🇷</span><span class="lname">한국어</span></div>
+      <div class="lang-btn" onclick="setLang('en')"><span class="flag">🇺🇸</span><span class="lname">English</span></div>
+      <div class="lang-btn" onclick="setLang('ja')"><span class="flag">🇯🇵</span><span class="lname">日本語</span></div>
+      <div class="lang-btn" onclick="setLang('zh')"><span class="flag">🇨🇳</span><span class="lname">中文</span></div>
+    </div>
+  </div>
+
+  <div class="divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
+
+  <!-- 한국어 -->
+  <div class="content show" id="lang-ko">
+    <div class="welcome-msg"><div class="welcome-title">환영합니다</div><div class="welcome-text">CF호텔을 선택해 주셔서 진심으로 감사드립니다.<br>편안하고 즐거운 시간이 되시길 바랍니다.</div></div>
+    <div class="info-grid">
+      <div class="info-card"><div class="info-icon">📍</div><div><div class="info-ttl">위치</div><div class="info-val">서울특별시 중구 충무로<br>지하철 충무로역 도보 2분</div></div></div>
+      <div class="info-card"><div class="info-icon">🕐</div><div><div class="info-ttl">체크인 / 체크아웃</div><div class="info-val">체크인 15:00 이후 · 체크아웃 11:00 이전</div></div></div>
+      <div class="info-card"><div class="info-icon">📞</div><div><div class="info-ttl">프런트 데스크</div><div class="info-val">내선 0 또는 카운터 직접 방문 · 24시간</div></div></div>
+      <div class="info-card"><div class="info-icon">🍜</div><div><div class="info-ttl">주변 맛집</div><div class="info-val">명동·충무로 맛집 지도는 카운터에서 안내</div></div></div>
+    </div>
+    <div class="review-section">
+      <div class="review-badge">Review</div>
+      <div class="review-title">좋은 리뷰 하나가<br>직원들에게 큰 힘이 됩니다 🙏</div>
+      <div class="review-text">즐거운 숙박이 되셨다면 짧은 한마디라도 남겨주세요.<br>저희 팀에게 가장 소중한 선물입니다.</div>
+      <div class="review-stars">★★★★★</div>
+      <div class="review-btns">
+        <a class="review-btn btn-google" href="https://maps.google.com" target="_blank">🔍 Google 리뷰</a>
+        <a class="review-btn btn-naver" href="https://map.naver.com" target="_blank">🗺️ 네이버 리뷰</a>
+      </div>
+    </div>
+    <div class="gift-msg-box"><div class="gift-icon">🍪🍬</div><div class="gift-txt">이 작은 선물은 CF호텔을 찾아주신<br><span class="gift-em">소중한 손님께 드리는 감사의 마음</span>입니다.<br>또 뵐 수 있기를 기대합니다 ✨</div></div>
+  </div>
+
+  <!-- English -->
+  <div class="content" id="lang-en">
+    <div class="welcome-msg"><div class="welcome-title">Welcome</div><div class="welcome-text">Thank you for choosing CF Hotel.<br>We hope your stay is warm and memorable.</div></div>
+    <div class="info-grid">
+      <div class="info-card"><div class="info-icon">📍</div><div><div class="info-ttl">Location</div><div class="info-val">Chungmuro, Jung-gu, Seoul<br>2 min walk from Chungmuro Station</div></div></div>
+      <div class="info-card"><div class="info-icon">🕐</div><div><div class="info-ttl">Check-in / Check-out</div><div class="info-val">Check-in from 15:00 · Check-out by 11:00</div></div></div>
+      <div class="info-card"><div class="info-icon">📞</div><div><div class="info-ttl">Front Desk</div><div class="info-val">Dial 0 or visit the counter · 24 hours</div></div></div>
+      <div class="info-card"><div class="info-icon">🍜</div><div><div class="info-ttl">Nearby Dining</div><div class="info-val">Ask staff for a local restaurant map around Myeongdong</div></div></div>
+    </div>
+    <div class="review-section">
+      <div class="review-badge">Review</div>
+      <div class="review-title">Your kind words mean<br>the world to our team 🙏</div>
+      <div class="review-text">If you enjoyed your stay, even a short review<br>makes a huge difference for our staff.</div>
+      <div class="review-stars">★★★★★</div>
+      <div class="review-btns">
+        <a class="review-btn btn-google" href="https://maps.google.com" target="_blank">🔍 Google Review</a>
+        <a class="review-btn btn-naver" href="https://map.naver.com" target="_blank">🗺️ Naver Review</a>
+      </div>
+    </div>
+    <div class="gift-msg-box"><div class="gift-icon">🍪🍬</div><div class="gift-txt">This small gift is our way of saying<br><span class="gift-em">thank you for visiting CF Hotel.</span><br>We look forward to welcoming you again ✨</div></div>
+  </div>
+
+  <!-- 日本語 -->
+  <div class="content" id="lang-ja">
+    <div class="welcome-msg"><div class="welcome-title" style="font-family:'Noto Sans JP',sans-serif;font-style:normal">ようこそ</div><div class="welcome-text">CFホテルをお選びいただき、誠にありがとうございます。<br>快適なご滞在となりますよう願っております。</div></div>
+    <div class="info-grid">
+      <div class="info-card"><div class="info-icon">📍</div><div><div class="info-ttl">アクセス</div><div class="info-val">ソウル市中区忠武路<br>地下鉄忠武路駅から徒歩2分</div></div></div>
+      <div class="info-card"><div class="info-icon">🕐</div><div><div class="info-ttl">チェックイン／アウト</div><div class="info-val">チェックイン 15:00〜 · チェックアウト 〜11:00</div></div></div>
+      <div class="info-card"><div class="info-icon">📞</div><div><div class="info-ttl">フロント</div><div class="info-val">内線0番 または直接カウンターへ · 24時間</div></div></div>
+      <div class="info-card"><div class="info-icon">🍜</div><div><div class="info-ttl">周辺グルメ</div><div class="info-val">明洞周辺のグルメ案内はカウンターにて</div></div></div>
+    </div>
+    <div class="review-section">
+      <div class="review-badge">Review</div>
+      <div class="review-title">温かいクチコミが<br>スタッフの大きな励みになります 🙏</div>
+      <div class="review-text">ご滞在を楽しんでいただけましたら、<br>ぜひ短いクチコミをお寄せください。</div>
+      <div class="review-stars">★★★★★</div>
+      <div class="review-btns">
+        <a class="review-btn btn-google" href="https://maps.google.com" target="_blank">🔍 Googleクチコミ</a>
+        <a class="review-btn btn-naver" href="https://map.naver.com" target="_blank">🗺️ Naverクチコミ</a>
+      </div>
+    </div>
+    <div class="gift-msg-box"><div class="gift-icon">🍪🍬</div><div class="gift-txt">この小さなプレゼントは、<br><span class="gift-em">ご来館いただいた感謝の気持ち</span>です。<br>またのお越しをお待ちしております ✨</div></div>
+  </div>
+
+  <!-- 中文 -->
+  <div class="content" id="lang-zh">
+    <div class="welcome-msg"><div class="welcome-title" style="font-family:'Noto Serif SC',serif;font-style:normal;letter-spacing:4px">欢迎光临</div><div class="welcome-text">感谢您选择CF酒店。<br>希望您在这里度过愉快、舒适的时光。</div></div>
+    <div class="info-grid">
+      <div class="info-card"><div class="info-icon">📍</div><div><div class="info-ttl">位置</div><div class="info-val">首尔市中区忠武路<br>地铁忠武路站步行2分钟</div></div></div>
+      <div class="info-card"><div class="info-icon">🕐</div><div><div class="info-ttl">入住 / 退房</div><div class="info-val">入住 15:00以后 · 退房 11:00以前</div></div></div>
+      <div class="info-card"><div class="info-icon">📞</div><div><div class="info-ttl">前台服务</div><div class="info-val">拨打内线0号或直接前往前台 · 24小时</div></div></div>
+      <div class="info-card"><div class="info-icon">🍜</div><div><div class="info-ttl">周边餐厅</div><div class="info-val">明洞周边美食地图请向前台工作人员咨询</div></div></div>
+    </div>
+    <div class="review-section">
+      <div class="review-badge">Review</div>
+      <div class="review-title">您的好评是对我们<br>最大的鼓励和礼物 🙏</div>
+      <div class="review-text">如果您对此次入住感到满意，<br>请留下短短几句好评。</div>
+      <div class="review-stars">★★★★★</div>
+      <div class="review-btns">
+        <a class="review-btn btn-google" href="https://maps.google.com" target="_blank">🔍 Google评价</a>
+        <a class="review-btn btn-naver" href="https://map.naver.com" target="_blank">🗺️ Naver评价</a>
+      </div>
+    </div>
+    <div class="gift-msg-box"><div class="gift-icon">🍪🍬</div><div class="gift-txt">这份小礼物代表着<br><span class="gift-em">CF酒店对您惠顾的深深感谢。</span><br>期待您再次光临 ✨</div></div>
+  </div>
+
+  <div class="hotel-footer">
+    <div class="footer-name">CF HOTEL</div>
+    <div class="footer-addr">Chungmuro, Seoul · 24hr Front Desk</div>
+  </div>
+</div>
+
+<button class="float-btn" onclick="showPrint()">🖨️ 웰컴 카드 인쇄</button>
+</div><!-- /welcome-page -->
+
+
+<!-- ══════════════ 인쇄 카드 페이지 ══════════════ -->
+<div class="print-page" id="printPage">
+  <div class="print-topbar">
+    <button class="back-btn" onclick="showWelcome()">← 웰컴페이지</button>
+    <label>QR URL</label>
+    <input type="text" id="urlInput" placeholder="배포 후 URL 붙여넣기">
+    <button class="tb-btn" onclick="rebuildCards()">QR 업데이트</button>
+    <button class="tb-btn dark" onclick="window.print()">🖨️ 인쇄</button>
+  </div>
+
+  <div class="cards-grid" id="cardsGrid"></div>
+</div>
+
+
+<script>
+/* ── 페이지 전환 ── */
+function showPrint(){
+  document.getElementById('welcomePage').style.display='none';
+  document.getElementById('printPage').style.display='flex';
+  rebuildCards();
+}
+function showWelcome(){
+  document.getElementById('printPage').style.display='none';
+  document.getElementById('welcomePage').style.display='block';
+}
+
+/* ── 언어 전환 ── */
+function setLang(lang){
+  const langs=['ko','en','ja','zh'];
+  document.querySelectorAll('.lang-btn').forEach((b,i)=>b.classList.toggle('active',langs[i]===lang));
+  document.querySelectorAll('.content').forEach(c=>c.classList.remove('show'));
+  const el=document.getElementById('lang-'+lang);
+  if(el) el.classList.add('show');
+}
+
+/* ── 브라우저 언어 자동 감지 ── */
+(function(){
+  const bl=navigator.language||'ko';
+  if(bl.startsWith('ja')) setLang('ja');
+  else if(bl.startsWith('zh')) setLang('zh');
+  else if(bl.startsWith('en')) setLang('en');
+  else setLang('ko');
+})();
+
+/* ── 카드 빌드 ── */
+function cardHTML(idx){
+  return `<div class="p-card">
+    <div class="p-card-hd">
+      <div class="p-hname">CF HOTEL</div>
+      <div class="p-hloc">Chungmuro · Seoul</div>
+      <div class="p-goldline"></div>
+    </div>
+    <div class="p-body">
+      <div class="p-welcome">
+        <div class="p-w1">Welcome · ようこそ · 欢迎</div>
+        <div class="p-w2">A gift from CF Hotel</div>
+      </div>
+      <div class="p-qr-wrap">
+        <div class="p-qr-box" id="pqr${idx}"></div>
+        <div class="p-langs">
+          <span class="p-lang">🇰🇷 한국어</span>
+          <span class="p-lang">🇺🇸 EN</span>
+          <span class="p-lang">🇯🇵 日本語</span>
+          <span class="p-lang">🇨🇳 中文</span>
+        </div>
+        <div class="p-scan">QR 스캔 → 호텔 안내 + 리뷰 링크</div>
+      </div>
+      <div class="p-gift">
+        <div class="p-gift-icon">🍪🍬</div>
+        <div class="p-gift-msg">소중한 손님께 드리는 <strong>감사의 선물</strong>입니다.<br>편안하고 즐거운 시간 되세요 ✨</div>
+      </div>
+      <div class="p-review">
+        <div class="p-stars">★★★★★</div>
+        <div class="p-rtxt">좋은 리뷰 한 마디가<br><strong>직원들에게 가장 큰 선물</strong>입니다 🙏</div>
+      </div>
+    </div>
+    <div class="p-footer">
+      <div class="p-faddr">충무로 · 24hr Front Desk</div>
+      <div class="p-flogo">CF</div>
+    </div>
+  </div>`;
+}
+
+function rebuildCards(){
+  const grid=document.getElementById('cardsGrid');
+  grid.innerHTML='';
+  for(let i=0;i<4;i++) grid.insertAdjacentHTML('beforeend',cardHTML(i));
+  setTimeout(generateQRs,150);
+}
+
+function generateQRs(){
+  const url=document.getElementById('urlInput').value.trim()||window.location.href.split('?')[0];
+  for(let i=0;i<4;i++){
+    const el=document.getElementById('pqr'+i);
+    if(el){
+      el.innerHTML='';
+      new QRCode(el,{text:url,width:110,height:110,colorDark:'#1A2535',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
+    }
+  }
+}
+</script>
+</body>
+</html>
