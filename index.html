@@ -106,10 +106,14 @@ body::before {
   display:flex;align-items:center;gap:7px;padding:10px 18px;border-radius:24px;
   cursor:pointer;font-size:12px;font-weight:500;text-decoration:none;transition:all .2s;border:none;
 }
-.btn-google{background:var(--gold);color:white;}
-.btn-naver{background:#03C75A;color:white;}
-.btn-google:hover{background:var(--gold-dark);}
-.btn-naver:hover{background:#02a34a;}
+.btn-airbnb{background:#FF5A5F;color:white;}
+.btn-booking{background:#003580;color:white;}
+.btn-agoda{background:#E2042D;color:white;}
+.btn-trip{background:#1890FF;color:white;}
+.btn-airbnb:hover{background:#e0484d;}
+.btn-booking:hover{background:#002a65;}
+.btn-agoda:hover{background:#c0031f;}
+.btn-trip:hover{background:#0d7ce0;}
 
 .gift-msg-box{background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.2);border-radius:14px;padding:18px 20px;text-align:center;}
 .gift-icon{font-size:28px;margin-bottom:8px;}
@@ -264,19 +268,21 @@ body::before {
   <div class="content show" id="lang-ko">
     <div class="welcome-msg"><div class="welcome-title">환영합니다</div><div class="welcome-text">CF호텔을 선택해 주셔서 진심으로 감사드립니다.<br>편안하고 즐거운 시간이 되시길 바랍니다.</div></div>
     <div class="info-grid">
-      <div class="info-card"><div class="info-icon">📍</div><div><div class="info-ttl">위치</div><div class="info-val">서울특별시 중구 충무로<br>지하철 충무로역 도보 2분</div></div></div>
-      <div class="info-card"><div class="info-icon">🕐</div><div><div class="info-ttl">체크인 / 체크아웃</div><div class="info-val">체크인 15:00 이후 · 체크아웃 11:00 이전</div></div></div>
-      <div class="info-card"><div class="info-icon">📞</div><div><div class="info-ttl">프런트 데스크</div><div class="info-val">내선 0 또는 카운터 직접 방문 · 24시간</div></div></div>
+      <div class="info-card"><div class="info-icon">📍</div><div><div class="info-ttl">위치</div><div class="info-val"><a href="https://maps.google.com/?q=서울+중구+충무로+CF호텔" target="_blank" style="color:inherit;">서울특별시 중구 충무로</a><br>지하철 충무로역 도보 2분</div></div></div>
+      <div class="info-card"><div class="info-icon">🕐</div><div><div class="info-ttl">체크인 / 체크아웃</div><div class="info-val">체크인 16:00 이후 · 체크아웃 11:00 이전</div></div></div>
+      <div class="info-card"><div class="info-icon">📞</div><div><div class="info-ttl">프런트 데스크</div><div class="info-val">010-5379-8462<br>카카오톡 · 라인 문의 가능<br>운영시간 09:00 ~ 23:00</div></div></div>
       <div class="info-card"><div class="info-icon">🍜</div><div><div class="info-ttl">주변 맛집</div><div class="info-val">명동·충무로 맛집 지도는 카운터에서 안내</div></div></div>
     </div>
     <div class="review-section">
       <div class="review-badge">Review</div>
       <div class="review-title">좋은 리뷰 하나가<br>직원들에게 큰 힘이 됩니다 🙏</div>
-      <div class="review-text">즐거운 숙박이 되셨다면 짧은 한마디라도 남겨주세요.<br>저희 팀에게 가장 소중한 선물입니다.</div>
+      <div class="review-text">즐거운 숙박이 되셨다면 짧은 한마디라도 남겨주세요.<br>예약하신 사이트에 리뷰를 남겨주시면 감사합니다.</div>
       <div class="review-stars">★★★★★</div>
       <div class="review-btns">
-        <a class="review-btn btn-google" href="https://maps.google.com" target="_blank">🔍 Google 리뷰</a>
-        <a class="review-btn btn-naver" href="https://map.naver.com" target="_blank">🗺️ 네이버 리뷰</a>
+        <a class="review-btn btn-airbnb" href="https://www.airbnb.co.kr" target="_blank">✈️ Airbnb</a>
+        <a class="review-btn btn-booking" href="https://www.booking.com" target="_blank">🏨 Booking.com</a>
+        <a class="review-btn btn-agoda" href="https://www.agoda.com" target="_blank">🌏 Agoda</a>
+        <a class="review-btn btn-trip" href="https://www.trip.com" target="_blank">✈️ Trip.com</a>
       </div>
     </div>
     <div class="gift-msg-box"><div class="gift-icon">🍪🍬</div><div class="gift-txt">이 작은 선물은 CF호텔을 찾아주신<br><span class="gift-em">소중한 손님께 드리는 감사의 마음</span>입니다.<br>또 뵐 수 있기를 기대합니다 ✨</div></div>
@@ -287,18 +293,20 @@ body::before {
     <div class="welcome-msg"><div class="welcome-title">Welcome</div><div class="welcome-text">Thank you for choosing CF Hotel.<br>We hope your stay is warm and memorable.</div></div>
     <div class="info-grid">
       <div class="info-card"><div class="info-icon">📍</div><div><div class="info-ttl">Location</div><div class="info-val">Chungmuro, Jung-gu, Seoul<br>2 min walk from Chungmuro Station</div></div></div>
-      <div class="info-card"><div class="info-icon">🕐</div><div><div class="info-ttl">Check-in / Check-out</div><div class="info-val">Check-in from 15:00 · Check-out by 11:00</div></div></div>
-      <div class="info-card"><div class="info-icon">📞</div><div><div class="info-ttl">Front Desk</div><div class="info-val">Dial 0 or visit the counter · 24 hours</div></div></div>
+      <div class="info-card"><div class="info-icon">🕐</div><div><div class="info-ttl">Check-in / Check-out</div><div class="info-val">Check-in from 16:00 · Check-out by 11:00</div></div></div>
+      <div class="info-card"><div class="info-icon">📞</div><div><div class="info-ttl">Front Desk</div><div class="info-val">010-5379-8462<br>KakaoTalk · Line available<br>Hours: 09:00 ~ 23:00</div></div></div>
       <div class="info-card"><div class="info-icon">🍜</div><div><div class="info-ttl">Nearby Dining</div><div class="info-val">Ask staff for a local restaurant map around Myeongdong</div></div></div>
     </div>
     <div class="review-section">
       <div class="review-badge">Review</div>
       <div class="review-title">Your kind words mean<br>the world to our team 🙏</div>
-      <div class="review-text">If you enjoyed your stay, even a short review<br>makes a huge difference for our staff.</div>
+      <div class="review-text">If you enjoyed your stay, please leave a review<br>on the platform you booked through.</div>
       <div class="review-stars">★★★★★</div>
       <div class="review-btns">
-        <a class="review-btn btn-google" href="https://maps.google.com" target="_blank">🔍 Google Review</a>
-        <a class="review-btn btn-naver" href="https://map.naver.com" target="_blank">🗺️ Naver Review</a>
+        <a class="review-btn btn-airbnb" href="https://www.airbnb.co.kr" target="_blank">✈️ Airbnb</a>
+        <a class="review-btn btn-booking" href="https://www.booking.com" target="_blank">🏨 Booking.com</a>
+        <a class="review-btn btn-agoda" href="https://www.agoda.com" target="_blank">🌏 Agoda</a>
+        <a class="review-btn btn-trip" href="https://www.trip.com" target="_blank">✈️ Trip.com</a>
       </div>
     </div>
     <div class="gift-msg-box"><div class="gift-icon">🍪🍬</div><div class="gift-txt">This small gift is our way of saying<br><span class="gift-em">thank you for visiting CF Hotel.</span><br>We look forward to welcoming you again ✨</div></div>
@@ -309,18 +317,20 @@ body::before {
     <div class="welcome-msg"><div class="welcome-title" style="font-family:'Noto Sans JP',sans-serif;font-style:normal">ようこそ</div><div class="welcome-text">CFホテルをお選びいただき、誠にありがとうございます。<br>快適なご滞在となりますよう願っております。</div></div>
     <div class="info-grid">
       <div class="info-card"><div class="info-icon">📍</div><div><div class="info-ttl">アクセス</div><div class="info-val">ソウル市中区忠武路<br>地下鉄忠武路駅から徒歩2分</div></div></div>
-      <div class="info-card"><div class="info-icon">🕐</div><div><div class="info-ttl">チェックイン／アウト</div><div class="info-val">チェックイン 15:00〜 · チェックアウト 〜11:00</div></div></div>
-      <div class="info-card"><div class="info-icon">📞</div><div><div class="info-ttl">フロント</div><div class="info-val">内線0番 または直接カウンターへ · 24時間</div></div></div>
+      <div class="info-card"><div class="info-icon">🕐</div><div><div class="info-ttl">チェックイン／アウト</div><div class="info-val">チェックイン 16:00〜 · チェックアウト 〜11:00</div></div></div>
+      <div class="info-card"><div class="info-icon">📞</div><div><div class="info-ttl">フロント</div><div class="info-val">010-5379-8462<br>カカオトーク・LINE対応可<br>営業時間 09:00〜23:00</div></div></div>
       <div class="info-card"><div class="info-icon">🍜</div><div><div class="info-ttl">周辺グルメ</div><div class="info-val">明洞周辺のグルメ案内はカウンターにて</div></div></div>
     </div>
     <div class="review-section">
       <div class="review-badge">Review</div>
       <div class="review-title">温かいクチコミが<br>スタッフの大きな励みになります 🙏</div>
-      <div class="review-text">ご滞在を楽しんでいただけましたら、<br>ぜひ短いクチコミをお寄せください。</div>
+      <div class="review-text">ご滞在を楽しんでいただけましたら、<br>ご予約されたサイトにクチコミをお寄せください。</div>
       <div class="review-stars">★★★★★</div>
       <div class="review-btns">
-        <a class="review-btn btn-google" href="https://maps.google.com" target="_blank">🔍 Googleクチコミ</a>
-        <a class="review-btn btn-naver" href="https://map.naver.com" target="_blank">🗺️ Naverクチコミ</a>
+        <a class="review-btn btn-airbnb" href="https://www.airbnb.co.kr" target="_blank">✈️ Airbnb</a>
+        <a class="review-btn btn-booking" href="https://www.booking.com" target="_blank">🏨 Booking.com</a>
+        <a class="review-btn btn-agoda" href="https://www.agoda.com" target="_blank">🌏 Agoda</a>
+        <a class="review-btn btn-trip" href="https://www.trip.com" target="_blank">✈️ Trip.com</a>
       </div>
     </div>
     <div class="gift-msg-box"><div class="gift-icon">🍪🍬</div><div class="gift-txt">この小さなプレゼントは、<br><span class="gift-em">ご来館いただいた感謝の気持ち</span>です。<br>またのお越しをお待ちしております ✨</div></div>
@@ -331,18 +341,20 @@ body::before {
     <div class="welcome-msg"><div class="welcome-title" style="font-family:'Noto Serif SC',serif;font-style:normal;letter-spacing:4px">欢迎光临</div><div class="welcome-text">感谢您选择CF酒店。<br>希望您在这里度过愉快、舒适的时光。</div></div>
     <div class="info-grid">
       <div class="info-card"><div class="info-icon">📍</div><div><div class="info-ttl">位置</div><div class="info-val">首尔市中区忠武路<br>地铁忠武路站步行2分钟</div></div></div>
-      <div class="info-card"><div class="info-icon">🕐</div><div><div class="info-ttl">入住 / 退房</div><div class="info-val">入住 15:00以后 · 退房 11:00以前</div></div></div>
-      <div class="info-card"><div class="info-icon">📞</div><div><div class="info-ttl">前台服务</div><div class="info-val">拨打内线0号或直接前往前台 · 24小时</div></div></div>
+      <div class="info-card"><div class="info-icon">🕐</div><div><div class="info-ttl">入住 / 退房</div><div class="info-val">入住 16:00以后 · 退房 11:00以前</div></div></div>
+      <div class="info-card"><div class="info-icon">📞</div><div><div class="info-ttl">前台服务</div><div class="info-val">010-5379-8462<br>KakaoTalk · LINE 可咨询<br>服务时间 09:00〜23:00</div></div></div>
       <div class="info-card"><div class="info-icon">🍜</div><div><div class="info-ttl">周边餐厅</div><div class="info-val">明洞周边美食地图请向前台工作人员咨询</div></div></div>
     </div>
     <div class="review-section">
       <div class="review-badge">Review</div>
       <div class="review-title">您的好评是对我们<br>最大的鼓励和礼物 🙏</div>
-      <div class="review-text">如果您对此次入住感到满意，<br>请留下短短几句好评。</div>
+      <div class="review-text">如果您对此次入住感到满意，<br>请在您预订的平台上留下好评。</div>
       <div class="review-stars">★★★★★</div>
       <div class="review-btns">
-        <a class="review-btn btn-google" href="https://maps.google.com" target="_blank">🔍 Google评价</a>
-        <a class="review-btn btn-naver" href="https://map.naver.com" target="_blank">🗺️ Naver评价</a>
+        <a class="review-btn btn-airbnb" href="https://www.airbnb.co.kr" target="_blank">✈️ Airbnb</a>
+        <a class="review-btn btn-booking" href="https://www.booking.com" target="_blank">🏨 Booking.com</a>
+        <a class="review-btn btn-agoda" href="https://www.agoda.com" target="_blank">🌏 Agoda</a>
+        <a class="review-btn btn-trip" href="https://www.trip.com" target="_blank">✈️ Trip.com</a>
       </div>
     </div>
     <div class="gift-msg-box"><div class="gift-icon">🍪🍬</div><div class="gift-txt">这份小礼物代表着<br><span class="gift-em">CF酒店对您惠顾的深深感谢。</span><br>期待您再次光临 ✨</div></div>
@@ -350,7 +362,7 @@ body::before {
 
   <div class="hotel-footer">
     <div class="footer-name">CF HOTEL</div>
-    <div class="footer-addr">Chungmuro, Seoul · 24hr Front Desk</div>
+    <div class="footer-addr">Chungmuro, Seoul · Front Desk 09:00~23:00</div>
   </div>
 </div>
 
