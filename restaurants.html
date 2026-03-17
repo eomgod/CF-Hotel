@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CF Hotel — 주변 맛집 가이드</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Josefin+Sans:wght@300;400;600&family=Noto+Sans+KR:wght@300;400;500&display=swap');
+
+:root {
+–bg:     #080808;
+–bg2:    #0f0e0a;
+–bg3:    #141208;
+–border: #3a3018;
+–border2:#2a2415;
+–gold:   #d4af37;
+–gold2:  #f0cc55;
+–gold-dim:#a08828;
+–text:   #f0e6c8;
+–text2:  #a09060;
+–text3:  #5a5030;
+}
+
+- { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(–bg); color: var(–text); font-family: ‘Noto Sans KR’, sans-serif; font-weight: 300; min-height: 100vh; }
+
+/* ── HEADER ── */
+.header {
+text-align: center; padding: 52px 24px 40px;
+background: linear-gradient(180deg, #0d0b07 0%, var(–bg) 100%);
+position: relative; overflow: hidden;
+}
+.header::after { content: ‘’; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(–gold2), transparent); }
+.header .back-btn {
+position: absolute; top: 20px; left: 20px;
+display: flex; align-items: center; gap: 6px;
+font-family: ‘Josefin Sans’, sans-serif; font-size: 11px;
+letter-spacing: 0.2em; color: var(–gold-dim); text-decoration: none;
+text-transform: uppercase; transition: color 0.2s;
+}
+.header .back-btn:hover { color: var(–gold); }
+.header .eyebrow { font-size: 10px; letter-spacing: 0.4em; color: var(–gold); text-transform: uppercase; margin-bottom: 14px; }
+.header h1 { font-family: ‘Cinzel’, serif; font-size: 28px; font-weight: 400; letter-spacing: 0.15em; color: var(–text); margin-bottom: 6px; }
+.header .sub { font-size: 12px; color: var(–text3); letter-spacing: 0.1em; }
+.gold-line { width: 40px; height: 1px; background: linear-gradient(90deg, var(–gold), var(–gold2)); margin: 16px auto 0; }
+
+/* ── FILTER TABS ── */
+.tabs { display: flex; gap: 8px; padding: 24px 20px 16px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+flex-shrink: 0; padding: 8px 18px;
+background: var(–bg2); border: 1px solid var(–border2);
+font-family: ‘Josefin Sans’, sans-serif; font-size: 11px;
+letter-spacing: 0.15em; color: var(–text2); text-transform: uppercase;
+cursor: pointer; transition: all 0.2s;
+}
+.tab.active, .tab:hover { background: var(–bg3); border-color: var(–gold); color: var(–gold); }
+
+/* ── RESTAURANT CARD ── */
+.container { max-width: 640px; margin: 0 auto; padding: 0 20px 40px; }
+.rest-card {
+background: var(–bg2); border: 1px solid var(–border2);
+margin-bottom: 10px; position: relative; overflow: hidden;
+transition: border-color 0.2s;
+}
+.rest-card::before { content: ‘’; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(–gold), transparent); opacity: 0; transition: opacity 0.2s; }
+.rest-card:hover { border-color: var(–border); }
+.rest-card:hover::before { opacity: 1; }
+.card-inner { padding: 20px; }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.card-top-left { flex: 1; }
+.card-category { display: inline-flex; align-items: center; gap: 5px; font-family: ‘Josefin Sans’, sans-serif; font-size: 9px; letter-spacing: 0.3em; color: var(–gold-dim); text-transform: uppercase; margin-bottom: 6px; }
+.card-name { font-size: 17px; font-weight: 500; color: var(–text); letter-spacing: 0.02em; }
+.card-distance { display: inline-flex; align-items: center; gap: 4px; background: var(–bg3); border: 1px solid var(–border2); padding: 4px 10px; font-family: ‘Josefin Sans’, sans-serif; font-size: 10px; color: var(–gold-dim); letter-spacing: 0.1em; white-space: nowrap; }
+.card-menu { font-size: 13px; color: var(–text2); margin-bottom: 12px; line-height: 1.6; }
+.card-meta { display: flex; gap: 12px; flex-wrap: wrap; padding-top: 12px; border-top: 1px solid var(–border2); }
+.meta-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(–text3); }
+.meta-item .mi-icon { font-size: 12px; }
+.meta-item .mi-val { color: var(–text2); }
+.price-badge { display: inline-flex; align-items: center; gap: 4px; }
+.price-dot { width: 6px; height: 6px; border-radius: 50%; background: var(–gold); }
+.price-dot.dim { background: var(–border); }
+.map-link { display: flex; align-items: center; gap: 6px; padding: 10px 16px; border-top: 1px solid var(–border2); font-family: ‘Josefin Sans’, sans-serif; font-size: 10px; letter-spacing: 0.2em; color: var(–gold-dim); text-transform: uppercase; text-decoration: none; transition: all 0.15s; cursor: pointer; background: transparent; border-left: none; border-right: none; border-bottom: none; width: 100%; }
+.map-link:hover { background: var(–bg3); color: var(–gold); }
+.map-link .ml-arr { margin-left: auto; font-size: 12px; }
+
+/* ── SECTION LABEL ── */
+.section-label { font-family: ‘Josefin Sans’, sans-serif; font-size: 10px; letter-spacing: 0.4em; color: var(–gold); text-transform: uppercase; padding: 24px 0 12px; display: flex; align-items: center; gap: 12px; }
+.section-label::after { content: ‘’; flex: 1; height: 1px; background: linear-gradient(90deg, var(–border), transparent); }
+
+/* ── FOOTER ── */
+footer { text-align: center; padding: 28px 20px; border-top: 1px solid var(–border2); font-family: ‘Josefin Sans’, sans-serif; font-size: 10px; letter-spacing: 0.2em; color: var(–text3); position: relative; }
+footer::before { content: ‘’; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(–gold), transparent); }
+
+/* ── HIDDEN ── */
+.rest-card.hidden { display: none; }
+</style>
+
+</head>
+<body>
+
+<div class="header">
+  <a class="back-btn" href="index.html">← 호텔로 돌아가기</a>
+  <p class="eyebrow">Dining Guide</p>
+  <h1>주변 맛집 가이드</h1>
+  <p class="sub">명동 · 충무로 · 을지로</p>
+  <div class="gold-line"></div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="filterTab(this,'all')">전체</div>
+  <div class="tab" onclick="filterTab(this,'korean')">한식</div>
+  <div class="tab" onclick="filterTab(this,'noodle')">국수·냉면</div>
+  <div class="tab" onclick="filterTab(this,'meat')">고기</div>
+  <div class="tab" onclick="filterTab(this,'western')">양식</div>
+  <div class="tab" onclick="filterTab(this,'asian')">아시안</div>
+  <div class="tab" onclick="filterTab(this,'cafe')">카페</div>
+</div>
+
+<div class="container">
+
+  <!-- ── 도보 5분 이내 ── -->
+
+  <div class="section-label">도보 5분 이내</div>
+
+  <!-- 필동면옥 -->
+
+  <div class="rest-card" data-cat="noodle korean">
+    <div class="card-inner">
+      <div class="card-top">
+        <div class="card-top-left">
+          <div class="card-category">🍜 냉면·한식</div>
+          <div class="card-name">필동면옥</div>
+        </div>
+        <div class="card-distance">🚶 도보 3분</div>
+      </div>
+      <div class="card-menu">평양냉면 · 온면 · 수육<br><span style="font-size:11px; color:var(--text3);">미쉐린 가이드 서울 선정 · 담백하고 깔끔한 육수</span></div>
+      <div class="card-meta">
+        <div class="meta-item"><span class="mi-icon">🕐</span><span class="mi-val">11:30 – 21:00</span></div>
+        <div class="meta-item"><span class="mi-icon">📅</span><span class="mi-val">월요일 휴무</span></div>
+        <div class="meta-item">
+          <span class="mi-icon">₩</span>
+          <div class="price-badge">
+            <div class="price-dot"></div><div class="price-dot"></div><div class="price-dot dim"></div>
+          </div>
+          <span class="mi-val">15,000~</span>
+        </div>
+      </div>
+    </div>
+    <a class="map-link" href="https://map.naver.com/v5/search/필동면옥" target="_blank">네이버 지도에서 보기 <span class="ml-arr">→</span></a>
+  </div>
+
+  <!-- 사랑방칼국수 -->
+
+  <div class="rest-card" data-cat="noodle korean">
+    <div class="card-inner">
+      <div class="card-top">
+        <div class="card-top-left">
+          <div class="card-category">🍲 칼국수·백숙</div>
+          <div class="card-name">사랑방칼국수</div>
+        </div>
+        <div class="card-distance">🚶 도보 4분</div>
+      </div>
+      <div class="card-menu">칼국수 · 닭곰탕 · 백숙백반<br><span style="font-size:11px; color:var(--text3);">수요미식회·식신로드 출연 · 현지인 최애 가성비 맛집</span></div>
+      <div class="card-meta">
+        <div class="meta-item"><span class="mi-icon">🕐</span><span class="mi-val">10:30 – 21:40</span></div>
+        <div class="meta-item"><span class="mi-icon">📅</span><span class="mi-val">연중무휴</span></div>
+        <div class="meta-item">
+          <span class="mi-icon">₩</span>
+          <div class="price-badge"><div class="price-dot"></div><div class="price-dot dim"></div><div class="price-dot dim"></div></div>
+          <span class="mi-val">6,000~</span>
+        </div>
+      </div>
+    </div>
+    <a class="map-link" href="https://map.naver.com/v5/search/사랑방칼국수 충무로" target="_blank">네이버 지도에서 보기 <span class="ml-arr">→</span></a>
+  </div>
+
+  <!-- 황소집 -->
+
+  <div class="rest-card" data-cat="korean">
+    <div class="card-inner">
+      <div class="card-top">
+        <div class="card-top-left">
+          <div class="card-category">🥣 도가니·한식</div>
+          <div class="card-name">황소집</div>
+        </div>
+        <div class="card-distance">🚶 도보 5분</div>
+      </div>
+      <div class="card-menu">도가니탕 · 도가니찜 · 생등심<br><span style="font-size:11px; color:var(--text3);">30년 전통 충무로 대표 도가니 맛집</span></div>
+      <div class="card-meta">
+        <div class="meta-item"><span class="mi-icon">🕐</span><span class="mi-val">11:00 – 21:30</span></div>
+        <div class="meta-item"><span class="mi-icon">📅</span><span class="mi-val">일요일 휴무</span></div>
+        <div class="meta-item">
+          <span class="mi-icon">₩</span>
+          <div class="price-badge"><div class="price-dot"></div><div class="price-dot"></div><div class="price-dot dim"></div></div>
+          <span class="mi-val">15,000~</span>
+        </div>
+      </div>
+    </div>
+    <a class="map-link" href="https://map.naver.com/v5/search/황소집 충무로" target="_blank">네이버 지도에서 보기 <span class="ml-arr">→</span></a>
+  </div>
+
+  <!-- 로스트템플 -->
+
+  <div class="rest-card" data-cat="asian">
+    <div class="card-inner">
+      <div class="card-top">
+        <div class="card-top-left">
+          <div class="card-category">🌶 아시안퓨전</div>
+          <div class="card-name">로스트템플</div>
+        </div>
+        <div class="card-distance">🚶 도보 3분</div>
+      </div>
+      <div class="card-menu">팟타이 · 똠얌칠리새우 · 타이거볶음밥<br><span style="font-size:11px; color:var(--text3);">동남아 분위기 · 충무로역 3분 · 인스타 핫플</span></div>
+      <div class="card-meta">
+        <div class="meta-item"><span class="mi-icon">🕐</span><span class="mi-val">11:30 – 21:30</span></div>
+        <div class="meta-item"><span class="mi-icon">📅</span><span class="mi-val">일요일 휴무</span></div>
+        <div class="meta-item">
+          <span class="mi-icon">₩</span>
+          <div class="price-badge"><div class="price-dot"></div><div class="price-dot"></div><div class="price-dot dim"></div></div>
+          <span class="mi-val">13,000~</span>
+        </div>
+      </div>
+    </div>
+    <a class="map-link" href="https://map.naver.com/v5/search/로스트템플 충무로" target="_blank">네이버 지도에서 보기 <span class="ml-arr">→</span></a>
+  </div>
+
+  <!-- ── 도보 10분 이내 ── -->
+
+  <div class="section-label">도보 10분 이내 (명동)</div>
+
+  <!-- 명동교자 -->
+
+  <div class="rest-card" data-cat="noodle korean">
+    <div class="card-inner">
+      <div class="card-top">
+        <div class="card-top-left">
+          <div class="card-category">🥟 칼국수·만두</div>
+          <div class="card-name">명동교자 본점</div>
+        </div>
+        <div class="card-distance">🚶 도보 8분</div>
+      </div>
+      <div class="card-menu">칼국수 · 만두 · 비빔국수<br><span style="font-size:11px; color:var(--text3);">외국인 관광객 필수 코스 · 항상 줄 서는 명소</span></div>
+      <div class="card-meta">
+        <div class="meta-item"><span class="mi-icon">🕐</span><span class="mi-val">10:30 – 21:30</span></div>
+        <div class="meta-item"><span class="mi-icon">📅</span><span class="mi-val">연중무휴</span></div>
+        <div class="meta-item">
+          <span class="mi-icon">₩</span>
+          <div class="price-badge"><div class="price-dot"></div><div class="price-dot"></div><div class="price-dot dim"></div></div>
+          <span class="mi-val">11,000~</span>
+        </div>
+      </div>
+    </div>
+    <a class="map-link" href="https://map.naver.com/v5/search/명동교자 본점" target="_blank">네이버 지도에서 보기 <span class="ml-arr">→</span></a>
+  </div>
+
+  <!-- 오발탄 충무로 -->
+
+  <div class="rest-card" data-cat="meat korean">
+    <div class="card-inner">
+      <div class="card-top">
+        <div class="card-top-left">
+          <div class="card-category">🥩 양대창·고기</div>
+          <div class="card-name">오발탄 충무로점</div>
+        </div>
+        <div class="card-distance">🚶 도보 5분</div>
+      </div>
+      <div class="card-menu">양대창 · 대창 · 모듬구이<br><span style="font-size:11px; color:var(--text3);">신선한 대창 · 충무로역 바로 앞 · 현지인 단골</span></div>
+      <div class="card-meta">
+        <div class="meta-item"><span class="mi-icon">🕐</span><span class="mi-val">17:00 – 01:00</span></div>
+        <div class="meta-item"><span class="mi-icon">📅</span><span class="mi-val">연중무휴</span></div>
+        <div class="meta-item">
+          <span class="mi-icon">₩</span>
+          <div class="price-badge"><div class="price-dot"></div><div class="price-dot"></div><div class="price-dot"></div></div>
+          <span class="mi-val">20,000~</span>
+        </div>
+      </div>
+    </div>
+    <a class="map-link" href="https://map.naver.com/v5/search/오발탄 충무로" target="_blank">네이버 지도에서 보기 <span class="ml-arr">→</span></a>
+  </div>
+
+  <!-- 파스켓마켓 -->
+
+  <div class="rest-card" data-cat="western">
+    <div class="card-inner">
+      <div class="card-top">
+        <div class="card-top-left">
+          <div class="card-category">🍝 파스타·양식</div>
+          <div class="card-name">파스켓마켓</div>
+        </div>
+        <div class="card-distance">🚶 도보 7분</div>
+      </div>
+      <div class="card-menu">트러플 크림뇨끼 · 문어스테이크 로제<br><span style="font-size:11px; color:var(--text3);">누룽지 파스타 원조 · 재방문율 높은 양식 맛집</span></div>
+      <div class="card-meta">
+        <div class="meta-item"><span class="mi-icon">🕐</span><span class="mi-val">11:30 – 21:30</span></div>
+        <div class="meta-item"><span class="mi-icon">📅</span><span class="mi-val">연중무휴</span></div>
+        <div class="meta-item">
+          <span class="mi-icon">₩</span>
+          <div class="price-badge"><div class="price-dot"></div><div class="price-dot"></div><div class="price-dot dim"></div></div>
+          <span class="mi-val">13,500~</span>
+        </div>
+      </div>
+    </div>
+    <a class="map-link" href="https://map.naver.com/v5/search/파스켓마켓 충무로" target="_blank">네이버 지도에서 보기 <span class="ml-arr">→</span></a>
+  </div>
+
+  <!-- 카페 섹션 -->
+
+  <div class="section-label">카페 · 디저트</div>
+
+  <!-- 커피한약방 -->
+
+  <div class="rest-card" data-cat="cafe">
+    <div class="card-inner">
+      <div class="card-top">
+        <div class="card-top-left">
+          <div class="card-category">☕ 카페·디저트</div>
+          <div class="card-name">커피한약방</div>
+        </div>
+        <div class="card-distance">🚶 도보 10분</div>
+      </div>
+      <div class="card-menu">핸드드립 커피 · 한국 전통 케이크<br><span style="font-size:11px; color:var(--text3);">옛 약국 건물 개조 · 독특한 분위기 · 명동 핫플</span></div>
+      <div class="card-meta">
+        <div class="meta-item"><span class="mi-icon">🕐</span><span class="mi-val">10:00 – 22:00</span></div>
+        <div class="meta-item"><span class="mi-icon">📅</span><span class="mi-val">연중무휴</span></div>
+        <div class="meta-item">
+          <span class="mi-icon">₩</span>
+          <div class="price-badge"><div class="price-dot"></div><div class="price-dot dim"></div><div class="price-dot dim"></div></div>
+          <span class="mi-val">6,000~</span>
+        </div>
+      </div>
+    </div>
+    <a class="map-link" href="https://map.naver.com/v5/search/커피한약방 명동" target="_blank">네이버 지도에서 보기 <span class="ml-arr">→</span></a>
+  </div>
+
+</div>
+
+<footer>CF HOTEL · 주변 맛집 가이드 · Chungmuro, Seoul</footer>
+
+<script>
+function filterTab(el, cat) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.rest-card').forEach(card => {
+    if (cat === 'all') {
+      card.classList.remove('hidden');
+    } else {
+      const cats = card.dataset.cat || '';
+      card.classList.toggle('hidden', !cats.includes(cat));
+    }
+  });
+}
+</script>
+
+</body>
+</html>
