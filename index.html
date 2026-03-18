@@ -8,17 +8,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Josefin+Sans:wght@300;400;600&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:    #090908;
-  --bg2:   #111108;
-  --bg3:   #18170e;
-  --bdr:   #3a3018;
-  --bdr2:  #2a2415;
-  --gold:  #d4af37;
-  --gold2: #f0cc55;
-  --gdim:  #8a7428;
-  --tx:    #f0e6c8;
-  --tx2:   #a09060;
-  --tx3:   #5a5030;
+  --bg:    #282823;
+  --bg2:   #32302a;
+  --bg3:   #3c3930;
+  --bdr:   #4a4535;
+  --bdr2:  #3a3628;
+  --gold:  #E9BE5F;
+  --gold2: #F5D070;
+  --gdim:  #B8922A;
+  --tx:    #F5E8B6;
+  --tx2:   #C8A84A;
+  --tx3:   #8a7840;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: var(--bg); color: var(--tx); font-family: "Noto Sans KR", sans-serif; font-weight: 300; }
@@ -56,7 +56,7 @@ body { background: var(--bg); color: var(--tx); font-family: "Noto Sans KR", san
 /* header */
 .hdr {
   text-align: center; padding: 52px 24px 40px;
-  background: linear-gradient(180deg, #0d0b07 0%, var(--bg) 100%);
+  background: linear-gradient(180deg, #1e1c18 0%, var(--bg) 100%);
   position: relative;
 }
 .hdr::after {
@@ -99,7 +99,7 @@ body { background: var(--bg); color: var(--tx); font-family: "Noto Sans KR", san
   text-decoration: none; border: none; cursor: pointer; transition: opacity 0.2s;
 }
 .mbtn:hover { opacity: 0.85; }
-.mbtn-g { background: #1e1e18; color: var(--tx); border: 1px solid var(--bdr); }
+.mbtn-g { background: #595C56; color: #F5E8B6; border: 1px solid #6a6d68; font-weight: 500; }
 .mbtn-k { background: #FEE500; color: #3C1E1E; }
 .mbtn-n { background: #03C75A; color: #fff; }
 
@@ -156,14 +156,14 @@ body { background: var(--bg); color: var(--tx); font-family: "Noto Sans KR", san
 }
 .acc-btn:hover { background: var(--bg3); }
 .acc-al { display: flex; align-items: center; gap: 10px; }
-.acc-icon { font-size: 18px; }
+.acc-icon { font-size: 20px; }
 .acc-arr { font-size: 11px; color: var(--gdim); transition: transform 0.2s; }
 .acc-btn.open .acc-arr { transform: rotate(180deg); }
 .acc-body { display: none; padding: 0 18px 18px; border-top: 1px solid var(--bdr2); }
 .acc-body.open { display: block; }
 
 /* amenity grid */
-.am-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding-top: 14px; }
+.am-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding-top: 22px; }
 .am-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--tx2); }
 
 /* info list */
@@ -223,7 +223,7 @@ body { background: var(--bg); color: var(--tx); font-family: "Noto Sans KR", san
 .acc-info .acc-body { background: var(--bg); }
 
 /* review */
-.rev-msg { text-align: center; font-size: 14px; color: var(--tx2); line-height: 2; margin-bottom: 24px; }
+.rev-msg { text-align: center; font-size: 14px; color: var(--tx2); line-height: 2; margin-bottom: 16px; padding-top: 22px; }
 .stars { text-align: center; font-size: 26px; color: var(--gold); letter-spacing: 4px; margin-bottom: 24px; }
 .plat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .plat-btn {
@@ -324,7 +324,7 @@ footer::before {
 
       <div class="acc">
         <button class="acc-btn" onclick="tog(this)">
-          <span class="acc-al"><span class="acc-icon">🛏</span><span id="t-a1">객실 내 비치 시설</span></span>
+          <span class="acc-al"><span class="acc-icon">🏨</span><span id="t-a1">객실 내 비치 시설</span></span>
           <span class="acc-arr">▼</span>
         </button>
         <div class="acc-body">
@@ -335,7 +335,7 @@ footer::before {
             <div class="am-item">🔥 <span id="t-heat">난방(중앙)</span></div>
             <div class="am-item">🧊 <span id="t-fridge">냉장고</span></div>
             <div class="am-item">💨 <span id="t-dryer">헤어드라이어</span></div>
-            <div class="am-item">☕ <span id="t-kettle">전기포트</span></div>
+            <div class="am-item">🔌 <span id="t-kettle">전기포트</span></div>
           </div>
         </div>
       </div>
@@ -477,13 +477,17 @@ footer::before {
         <p class="sh-ey">Review</p>
         <h2 class="sh-h2" id="t-rev-title">소중한 리뷰 남겨주세요</h2>
       </div>
-      <p class="rev-msg" id="t-rev-msg">좋은 리뷰 하나가 직원들에게 큰 힘이 됩니다 🙏</p>
-      <div class="stars">★★★★★</div>
+      <div class="card" style="text-align:center; margin-bottom:20px; padding: 24px 20px;">
+        <div class="card" style="text-align:center; margin-bottom:20px; padding: 24px 20px;">
+          <p class="rev-msg" id="t-rev-msg">좋은 리뷰 하나가 직원들에게 큰 힘이 됩니다 🙏</p>
+          <div class="stars">★★★★★</div>
+        </div>
+      </div>
       <div class="plat-grid">
-        <a class="plat-btn" href="https://www.airbnb.co.kr" target="_blank">✈️ Airbnb</a>
-        <a class="plat-btn" href="https://www.booking.com" target="_blank">🏨 Booking.com</a>
-        <a class="plat-btn" href="https://www.agoda.com" target="_blank">🌏 Agoda</a>
-        <a class="plat-btn" href="https://www.trip.com" target="_blank">✈️ Trip.com</a>
+        <a class="plat-btn" href="https://www.airbnb.co.kr" target="_blank" style="border-color:#E9BE5F;">✈️ Airbnb</a>
+        <a class="plat-btn" href="https://www.booking.com" target="_blank" style="border-color:#E9BE5F;">🏨 Booking.com</a>
+        <a class="plat-btn" href="https://www.agoda.com" target="_blank" style="border-color:#E9BE5F;">🌏 Agoda</a>
+        <a class="plat-btn" href="https://www.trip.com" target="_blank" style="border-color:#E9BE5F;">✈️ Trip.com</a>
       </div>
     </section>
 
