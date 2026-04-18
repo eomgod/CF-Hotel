@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CF 호텔 — 방한 외래관광객 대시보드</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Apple SD Gothic Neo','Malgun Gothic',Arial,sans-serif;background:#F7F3EE;color:#2C2C2A;font-size:14px}
+.hdr{background:#3D2B1A;color:#fff;padding:22px 32px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.hdr h1{font-size:17px;font-weight:600}.hdr .sub{font-size:11px;color:#B8A878;margin-top:3px}
+.badge{background:#B8A878;color:#3D2B1A;font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;white-space:nowrap}
+.wrap{max-width:980px;margin:0 auto;padding:24px 20px}
+.tabs{display:flex;border-bottom:1px solid #D3D1C7;background:#fff;border-radius:8px 8px 0 0;overflow:hidden;margin-bottom:24px}
+.tab{padding:12px 20px;font-size:13px;cursor:pointer;border:none;background:transparent;color:#888780;border-bottom:3px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.tab:hover{background:#F7F3EE;color:#3D2B1A}.tab.on{color:#3D2B1A;border-bottom-color:#B8A878;font-weight:700}
+.pnl{display:none}.pnl.on{display:block}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin-bottom:22px}
+.kpi{background:#fff;border-radius:8px;padding:14px 16px;border:1px solid #EDE5D8}
+.kv{font-size:23px;font-weight:700;color:#3D2B1A;margin-top:4px}.kl{font-size:11px;color:#888780;text-transform:uppercase;letter-spacing:.04em}.ks{font-size:11px;color:#B8A878;margin-top:2px}
+.card{background:#fff;border-radius:8px;border:1px solid #EDE5D8;padding:20px;margin-bottom:20px}
+.ctitle{font-size:11px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px}
+.leg{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:10px;font-size:12px;color:#5F5E5A}
+.leg span{display:flex;align-items:center;gap:5px}.leg b{width:11px;height:11px;border-radius:2px;display:inline-block;flex-shrink:0}
+.chtw{position:relative;width:100%}
+.note{background:#FFF9EC;border-left:3px solid #B8A878;padding:10px 14px;border-radius:0 6px 6px 0;font-size:12px;color:#5F5E5A;margin-top:14px;line-height:1.6}
+.note.red{background:#FFF0F0;border-left-color:#E24B4A}
+.htmap{width:100%;border-collapse:collapse;font-size:11px;table-layout:fixed}
+.htmap th{padding:6px 3px;text-align:center;font-weight:700;font-size:10px;color:#5F5E5A;background:#F7F3EE;border:1px solid #EDE5D8}
+.htmap td{padding:5px 2px;text-align:center;border:1px solid #EDE5D8;font-size:10px}
+.slider-row{display:flex;align-items:center;gap:14px;padding:12px 0;flex-wrap:wrap}
+.slider-row label{font-size:12px;color:#5F5E5A;white-space:nowrap}
+.slider-row input[type=range]{flex:1;min-width:160px;accent-color:#B8A878}
+.slider-val{font-size:15px;font-weight:700;color:#3D2B1A;min-width:52px;text-align:right}
+.scen-btns{display:flex;gap:8px;margin-bottom:14px}
+.scen-btn{padding:6px 14px;border:1px solid #D3D1C7;border-radius:6px;background:#fff;font-size:12px;cursor:pointer;color:#5F5E5A}
+.scen-btn.on{background:#3D2B1A;color:#fff;border-color:#3D2B1A;font-weight:700}
+.footer{text-align:center;padding:18px;color:#B4B2A9;font-size:11px}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div><h1>CF 호텔 · 방한 외래관광객 데이터 대시보드</h1>
+  <div class="sub">한국관광공사 통계 기반 · 2015–2026년 (2026년 3–12월은 예측치)</div></div>
+  <div class="badge">내부 참고용</div>
+</div>
+<div class="wrap">
+  <div class="tabs">
+    <button class="tab on" onclick="sw('annual')">연간 추이</button>
+    <button class="tab" onclick="sw('proj')">2026 예측</button>
+    <button class="tab" onclick="sw('season')">계절성 지수</button>
+    <button class="tab" onclick="sw('country')">국가별 현황</button>
+    <button class="tab" onclick="sw('west')">서양권 상세</button>
+  </div>
+
+  <div id="annual" class="pnl on">
+    <div class="kpis">
+      <div class="kpi"><div class="kl">2025년 확정</div><div class="kv">1,894만</div><div class="ks">역대 최고치</div></div>
+      <div class="kpi"><div class="kl">2026 기본 예측</div><div class="kv" id="kv_total">2,221만</div><div class="ks" id="kv_yoy">2025 대비 +17.3%</div></div>
+      <div class="kpi"><div class="kl">2019 대비 2025</div><div class="kv">+8.2%</div><div class="ks">코로나 전 최고 초과 회복</div></div>
+      <div class="kpi"><div class="kl">2023→2025 성장</div><div class="kv">+71.7%</div><div class="ks">빠른 회복세</div></div>
+    </div>
+    <div class="card">
+      <div class="ctitle">연도별 방한 외래관광객 (만 명)</div>
+      <div class="leg">
+        <span><b style="background:#B8A878"></b>2026 예측</span>
+        <span><b style="background:#185FA5"></b>2023–2025 실제</span>
+        <span><b style="background:#F09595"></b>2020–2022 코로나</span>
+        <span><b style="background:#B5D4F4"></b>2015–2019 실제</span>
+      </div>
+      <div class="chtw" style="height:300px"><canvas id="c1"></canvas></div>
+      <div class="note">2026년 1–2월 실제 YoY: 1월 +13.3%, 2월 +25.7%. 3–12월은 기본 시나리오(+17%) 적용 예측치.</div>
+    </div>
+  </div>
+
+  <div id="proj" class="pnl">
+    <div class="card">
+      <div class="ctitle">2026년 월별 예측 시나리오</div>
+      <div class="scen-btns">
+        <button class="scen-btn" onclick="setScen(0.12)">보수 +12%</button>
+        <button class="scen-btn on" onclick="setScen(0.17)">기본 +17%</button>
+        <button class="scen-btn" onclick="setScen(0.22)">낙관 +22%</button>
+      </div>
+      <div class="slider-row">
+        <label>성장률 조정 (3–12월 적용)</label>
+        <input type="range" id="growthSlider" min="5" max="35" value="17" step="1" oninput="onSlider(this.value)">
+        <span class="slider-val" id="growthVal">+17%</span>
+      </div>
+      <div class="kpis" style="margin-top:8px">
+        <div class="kpi"><div class="kl">2026 연간 예측</div><div class="kv" id="p_total">2,221만</div><div class="ks">기본 시나리오</div></div>
+        <div class="kpi"><div class="kl">2025 대비</div><div class="kv" id="p_yoy">+17.3%</div><div class="ks" id="p_diff">1,894만 → 2,221만</div></div>
+        <div class="kpi"><div class="kl">1–2월 실제</div><div class="kv">270만</div><div class="ks">1월 +13.3% / 2월 +25.7%</div></div>
+      </div>
+      <div class="leg">
+        <span><b style="background:#185FA5"></b>실제 (1–2월)</span>
+        <span><b style="background:#EF9F27"></b>예측 (3–12월)</span>
+        <span><b style="background:#B5D4F4"></b>2025년 실제</span>
+      </div>
+      <div class="chtw" style="height:300px"><canvas id="c_proj"></canvas></div>
+      <div class="note red">3–12월은 예측값입니다. 1–2월 YoY 평균 +19.5%와 2024→2025 성장률 +16%를 참고해 기본 시나리오 +17% 설정.</div>
+    </div>
+  </div>
+
+  <div id="season" class="pnl">
+    <div class="card">
+      <div class="ctitle">계절성 지수 히트맵 — 연도 × 월 (평균=100)</div>
+      <div style="overflow-x:auto"><table class="htmap" id="htbl"><thead><tr><th style="width:52px">연도</th></tr></thead><tbody id="htbody"></tbody></table></div>
+      <div class="leg" style="margin-top:12px">
+        <span><b style="background:#DBEAFE"></b>50–75 비수기</span>
+        <span><b style="background:#93C5FD"></b>75–95 보통이하</span>
+        <span><b style="background:#3B82F6"></b>95–110 평균</span>
+        <span><b style="background:#1E3A8A"></b>110+ 성수기</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ctitle">월별 평균 계절성 지수 (2015–2025, 코로나 제외)</div>
+      <div class="chtw" style="height:260px"><canvas id="c2"></canvas></div>
+      <div class="note">10월 최고(122), 1–2월 최저(76–84). 7월은 지수 104 — 평균 이상.</div>
+    </div>
+  </div>
+
+  <div id="country" class="pnl">
+    <div class="card">
+      <div class="ctitle">주요 국가별 연간 방문객 추이 (만 명)</div>
+      <div class="leg" id="legC"></div>
+      <div class="chtw" style="height:300px"><canvas id="c3"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="ctitle">2025 실제 vs 2026 예측 — 국가별 (만 명)</div>
+      <div class="leg"><span><b style="background:#185FA5"></b>2025 실제</span><span><b style="background:#B8A878"></b>2026 예측(+17%)</span></div>
+      <div class="chtw" style="height:380px"><canvas id="c4"></canvas></div>
+    </div>
+  </div>
+
+  <div id="west" class="pnl">
+    <div class="kpis">
+      <div class="kpi"><div class="kl">미국 2025</div><div class="kv">148.3만</div><div class="ks">→ 2026 예측 173.5만</div></div>
+      <div class="kpi"><div class="kl">프랑스 2025</div><div class="kv">18.0만</div><div class="ks">→ 2026 예측 21.1만</div></div>
+      <div class="kpi"><div class="kl">영국 2025</div><div class="kv">17.2만</div><div class="ks">→ 2026 예측 20.1만</div></div>
+      <div class="kpi"><div class="kl">호주 2025</div><div class="kv">26.7만</div><div class="ks">→ 2026 예측 31.2만</div></div>
+    </div>
+    <div class="card">
+      <div class="ctitle">서양권 국가별 연간 방문객 추이</div>
+      <div class="leg" id="legW"></div>
+      <div class="chtw" style="height:280px"><canvas id="c5"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="ctitle">호주 · 러시아 · 인도 추이</div>
+      <div class="chtw" style="height:220px"><canvas id="c6"></canvas></div>
+    </div>
+  </div>
+</div>
+<div class="footer">출처: 한국관광공사 방한 외래관광객 통계 · 2026년 3–12월은 예측치 · CF 호텔 내부 참고용</div>
+
+<script>
+const ALLYEARS=[2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026];
+const VALID=[2015,2016,2017,2018,2019,2023,2024,2025];
+const MONTHS=['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+const annual_fixed=[1323.2,1724.2,1333.6,1534.7,1750.3,251.9,96.7,319.8,1103.2,1636.9,1893.7];
+const m25=[1117243,1138408,1614596,1707113,1629387,1619220,1733199,1820332,1702813,1739020,1596939,1518292];
+const act26=[1265658,1431472];
+const ann25=18936562;
+
+function proj26(r){return MONTHS.map((_,i)=>i<2?act26[i]:Math.round(m25[i]*(1+r)));}
+function sum26(r){return proj26(r).reduce((a,b)=>a+b,0);}
+
+const seIdx={
+  2015:[83.2,95.3,112.3,125.6,121.0,68.1,57.1,97.0,109.4,125.5,104.3,101.3],
+  2016:[75.0,78.4,96.7,102.3,103.9,108.2,118.6,115.8,106.1,110.5,91.1,93.5],
+  2017:[109.8,112.7,111.0,96.8,88.0,89.2,90.8,99.3,97.1,104.9,98.4,102.0],
+  2018:[74.8,81.7,106.8,104.1,96.8,100.2,98.1,108.8,100.0,119.5,105.6,103.5],
+  2019:[75.7,82.4,105.3,112.1,101.9,101.2,99.3,108.8,100.1,113.5,99.9,99.9],
+  2023:[47.3,52.1,87.1,96.7,94.3,104.5,112.3,118.5,119.4,133.8,121.3,112.8],
+  2024:[64.6,75.5,109.4,107.2,104.0,103.9,103.3,114.6,107.3,117.3,99.8,93.2],
+  2025:[70.8,72.1,102.3,108.2,103.3,102.6,109.8,115.4,107.9,110.2,101.2,96.2]
+};
+// 국가별 (중복제거 후 정확한 값, 만 명)
+const countries={
+  '중국':  [598.4,806.8,416.9,479.0,602.3,null,null,null,201.9,460.3,548.1,null],
+  '일본':  [183.8,229.8,231.1,294.9,327.2,null,null,null,231.6,322.4,365.3,null],
+  '대만':  [51.8,83.3,92.6,111.5,126.0,null,null,null,96.1,147.4,189.1,null],
+  '미국':  [76.8,86.6,86.9,96.8,104.4,null,null,null,108.6,132.0,148.3,null],
+  '홍콩':  [52.3,65.1,65.8,68.4,69.5,null,null,null,40.4,57.1,62.3,null],
+  '필리핀':[40.4,55.7,44.9,46.0,50.4,null,null,null,34.3,51.7,61.5,null],
+  '베트남':[16.3,25.1,32.5,45.8,55.4,null,null,null,42.1,51.1,54.3,null],
+  '태국':  [37.2,47.0,49.9,55.9,57.2,null,null,null,37.9,32.4,33.4,null],
+  '인도':  [15.4,19.6,12.3,12.0,14.3,null,null,null,12.3,17.7,19.9,null],
+  '호주':  [13.3,15.2,15.0,15.3,17.3,null,null,null,19.9,24.4,26.7,null],
+  '러시아':[18.8,23.4,27.0,30.3,34.3,null,null,null,15.9,19.7,22.5,null],
+  '영국':  [12.3,13.5,12.6,13.1,14.4,null,null,null,12.1,14.7,17.2,null],
+  '프랑스':[8.4,9.2,9.2,10.0,11.1,null,null,null,13.3,16.5,18.0,null],
+  '독일':  [10.0,11.0,11.0,11.6,12.1,null,null,null,13.3,15.7,17.6,null],
+};
+const palette={'중국':'#E24B4A','일본':'#185FA5','대만':'#1D9E75','미국':'#BA7517','홍콩':'#534AB7','필리핀':'#D85A30','베트남':'#3B6D11','태국':'#D4537E','인도':'#888780','호주':'#0F6E56','러시아':'#993C1D','영국':'#378ADD','프랑스':'#7F77DD','독일':'#EF9F27'};
+const dashes={'중국':[],'일본':[6,3],'대만':[2,2],'미국':[],'홍콩':[4,2],'필리핀':[6,2,2,2],'베트남':[3,3],'태국':[5,2],'인도':[2,4],'호주':[],'러시아':[6,3],'영국':[4,2],'프랑스':[2,2],'독일':[6,2,2,2]};
+
+let curRate=0.17;
+function annualData(r){return [...annual_fixed,+(sum26(r)/10000).toFixed(1)];}
+function idxColor(v){return v>=110?'#1E3A8A':v>=95?'#3B82F6':v>=75?'#93C5FD':'#DBEAFE';}
+function txColor(v){return v>=95?'#fff':'#1E3A8A';}
+function avgSeason(){const a=Array(12).fill(0);VALID.forEach(y=>seIdx[y].forEach((v,i)=>a[i]+=v));return a.map(v=>+(v/VALID.length).toFixed(1));}
+function makeLeg(el,keys){el.innerHTML='';keys.forEach(k=>{const s=document.createElement('span');s.innerHTML=`<b style="background:${palette[k]}"></b>${k}`;el.appendChild(s);});}
+
+function buildHeatmap(){
+  document.querySelector('#htbl thead tr th:last-child')||MONTHS.forEach(m=>{const th=document.createElement('th');th.textContent=m;document.querySelector('#htbl thead tr').appendChild(th);});
+  const tb=document.getElementById('htbody');
+  VALID.forEach(yr=>{
+    const tr=document.createElement('tr');
+    const yt=document.createElement('td');yt.textContent=yr;yt.style.cssText='font-weight:700;color:#3D2B1A;background:#F7F3EE';tr.appendChild(yt);
+    seIdx[yr].forEach(v=>{const td=document.createElement('td');td.textContent=v.toFixed(0);td.style.background=idxColor(v);td.style.color=txColor(v);tr.appendChild(td);});
+    tb.appendChild(tr);
+  });
+}
+buildHeatmap();
+
+const gc='rgba(0,0,0,.06)',tc='#5F5E5A';
+const barColors=ALLYEARS.map(y=>y===2026?'#B8A878':y>=2023?'#185FA5':y<=2022&&y>=2020?'#F09595':'#B5D4F4');
+
+const c1=new Chart(document.getElementById('c1'),{type:'bar',data:{labels:ALLYEARS,datasets:[{label:'방문객',data:annualData(curRate),backgroundColor:barColors,borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.parsed.y.toLocaleString()}만 명${c.dataIndex===11?' (예측)':''}`}}},scales:{y:{grid:{color:gc},ticks:{color:tc,font:{size:11},callback:v=>v+'만'}},x:{grid:{display:false},ticks:{color:tc,font:{size:11},autoSkip:false}}}}});
+
+const avg=avgSeason();
+new Chart(document.getElementById('c2'),{type:'bar',data:{labels:MONTHS,datasets:[{label:'평균지수',data:avg,backgroundColor:avg.map(v=>v>=110?'#1E3A8A':v>=95?'#3B82F6':'#93C5FD'),borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`지수 ${c.parsed.y}`}}},scales:{y:{min:40,max:140,grid:{color:gc},ticks:{color:tc,font:{size:11}}},x:{grid:{display:false},ticks:{color:tc,font:{size:11},autoSkip:false}}}}});
+
+const topKeys=['중국','일본','대만','미국','홍콩','필리핀','베트남'];
+makeLeg(document.getElementById('legC'),topKeys);
+function cWithProj(k,r){const b=[...countries[k]];b[11]=+(countries[k][10]*( 1+r)).toFixed(1);return b;}
+const c3=new Chart(document.getElementById('c3'),{type:'line',data:{labels:ALLYEARS,datasets:topKeys.map(k=>({label:k,data:cWithProj(k,curRate),borderColor:palette[k],backgroundColor:'transparent',borderWidth:2.5,borderDash:dashes[k],pointRadius:3,spanGaps:true}))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.parsed.y!==null?c.parsed.y.toFixed(1)+'만':'없음')}}},scales:{y:{grid:{color:gc},ticks:{color:tc,font:{size:11},callback:v=>v+'만'}},x:{grid:{display:false},ticks:{color:tc,font:{size:11},autoSkip:false}}}}});
+
+const all25=Object.keys(countries).sort((a,b)=>(countries[b][10]||0)-(countries[a][10]||0));
+const c4=new Chart(document.getElementById('c4'),{type:'bar',data:{labels:all25,datasets:[{label:'2025 실제',data:all25.map(k=>+(countries[k][10]||0).toFixed(1)),backgroundColor:'#185FA5',borderRadius:3},{label:'2026 예측',data:all25.map(k=>+((countries[k][10]||0)*1.17).toFixed(1)),backgroundColor:'#B8A878',borderRadius:3}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.parsed.x.toFixed(1)}만`}}},scales:{x:{grid:{color:gc},ticks:{color:tc,font:{size:11},callback:v=>v+'만'}},y:{grid:{display:false},ticks:{color:tc,font:{size:11}}}}}});
+
+makeLeg(document.getElementById('legW'),['미국','영국','프랑스','독일']);
+new Chart(document.getElementById('c5'),{type:'line',data:{labels:ALLYEARS,datasets:['미국','영국','프랑스','독일'].map(k=>({label:k,data:cWithProj(k,curRate),borderColor:palette[k],backgroundColor:'transparent',borderWidth:2.5,borderDash:dashes[k],pointRadius:3,spanGaps:true}))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.parsed.y!==null?c.parsed.y.toFixed(1)+'만':'없음')}}},scales:{y:{grid:{color:gc},ticks:{color:tc,font:{size:11},callback:v=>v+'만'}},x:{grid:{display:false},ticks:{color:tc,font:{size:11},autoSkip:false}}}}});
+new Chart(document.getElementById('c6'),{type:'line',data:{labels:ALLYEARS,datasets:['호주','러시아','인도'].map(k=>({label:k,data:cWithProj(k,curRate),borderColor:palette[k],backgroundColor:'transparent',borderWidth:2.5,borderDash:dashes[k],pointRadius:3,spanGaps:true}))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{color:tc,font:{size:12},boxWidth:12}}},scales:{y:{grid:{color:gc},ticks:{color:tc,font:{size:11},callback:v=>v+'만'}},x:{grid:{display:false},ticks:{color:tc,font:{size:11},autoSkip:false}}}}});
+
+let projChart=null;
+function buildProjChart(r){
+  const p=proj26(r);
+  if(projChart)projChart.destroy();
+  projChart=new Chart(document.getElementById('c_proj'),{type:'bar',data:{labels:MONTHS,datasets:[
+    {label:'2025 실제',data:m25.map(v=>+(v/10000).toFixed(1)),backgroundColor:'#B5D4F4',borderRadius:3},
+    {label:'2026 실제',data:[...p.slice(0,2).map(v=>+(v/10000).toFixed(1)),...Array(10).fill(null)],backgroundColor:'#185FA5',borderRadius:3},
+    {label:'2026 예측',data:[null,null,...p.slice(2).map(v=>+(v/10000).toFixed(1))],backgroundColor:'#EF9F27',borderRadius:3}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{color:tc,font:{size:12},boxWidth:12}}},scales:{y:{grid:{color:gc},ticks:{color:tc,font:{size:11},callback:v=>v+'만'}},x:{grid:{display:false},ticks:{color:tc,font:{size:11},autoSkip:false}}}}});
+}
+
+function updateAll(r){
+  const t=sum26(r),yoy=(t/ann25-1)*100;
+  const tm=Math.round(t/10000).toLocaleString()+'만';
+  const ys=(yoy>=0?'+':'')+yoy.toFixed(1)+'%';
+  document.getElementById('kv_total').textContent=tm;
+  document.getElementById('kv_yoy').textContent='2025 대비 '+ys;
+  document.getElementById('p_total').textContent=tm;
+  document.getElementById('p_yoy').textContent=ys;
+  document.getElementById('p_diff').textContent=`1,894만 → ${tm}`;
+  document.getElementById('growthVal').textContent='+'+(r*100).toFixed(0)+'%';
+  document.getElementById('growthSlider').value=Math.round(r*100);
+  c1.data.datasets[0].data=annualData(r);c1.update();
+  c3.data.datasets=topKeys.map(k=>({label:k,data:cWithProj(k,r),borderColor:palette[k],backgroundColor:'transparent',borderWidth:2.5,borderDash:dashes[k],pointRadius:3,spanGaps:true}));c3.update();
+  buildProjChart(r);
+}
+buildProjChart(curRate);
+
+function setScen(r){curRate=r;document.querySelectorAll('.scen-btn').forEach(b=>b.classList.toggle('on',b.textContent.includes((r*100).toFixed(0))));updateAll(r);}
+function onSlider(v){curRate=v/100;document.querySelectorAll('.scen-btn').forEach(b=>b.classList.remove('on'));updateAll(curRate);}
+function sw(id){const ids=['annual','proj','season','country','west'];document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('on',ids[i]===id));document.querySelectorAll('.pnl').forEach(p=>p.classList.toggle('on',p.id===id));}
+</script>
+</body>
+</html>
