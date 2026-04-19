@@ -62,6 +62,30 @@ body{font-family:'Apple SD Gothic Neo','Malgun Gothic',Arial,sans-serif;backgrou
 .pill-lo{background:#FEE2E2;color:#B91C1C}
 .pill-ok{background:#DCFCE7;color:#15803D}
 .footer{text-align:center;padding:18px;color:#B4B2A9;font-size:11px}
+
+.hol-filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.hol-tag{padding:5px 13px;border:1.5px solid #D3D1C7;border-radius:20px;font-size:12px;cursor:pointer;background:#fff}
+.hol-month-header{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.hol-month-label{font-size:14px;font-weight:700;color:#3D2B1A;min-width:36px}
+.hol-idx-bar{height:8px;border-radius:4px;min-width:20px}
+.hol-idx-num{font-size:11px;color:#888780;white-space:nowrap}
+.hol-items{display:flex;flex-direction:column;gap:6px}
+.hol-item{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border-radius:7px;border:1px solid transparent;font-size:12px}
+.hol-flag{font-size:18px;min-width:24px;text-align:center}
+.hol-body{flex:1}
+.hol-name{font-weight:700;color:#2C2C2A;line-height:1.4}
+.hol-dates{color:#5F5E5A;font-size:11px;margin-top:2px}
+.hol-impact{display:inline-block;padding:1px 7px;border-radius:8px;font-size:10px;font-weight:700;margin-left:6px;vertical-align:middle}
+.imp-high{background:#FEE2E2;color:#B91C1C}
+.imp-mid{background:#FEF3C7;color:#92400E}
+.imp-low{background:#F3F4F6;color:#6B7280}
+.hol-note{font-size:11px;color:#6B7280;margin-top:3px;line-height:1.5}
+.hol-type-ea{background:#EFF6FF;border-color:#BFDBFE}
+.hol-type-ap{background:#F0FFF4;border-color:#BBF7D0}
+.hol-type-wt{background:#FFF7ED;border-color:#FED7AA}
+.hol-type-au{background:#FDF4FF;border-color:#E9D5FF}
+.hol-type-sea{background:#ECFDF5;border-color:#6EE7B7}
+
 </style>
 </head>
 <body>
@@ -78,6 +102,7 @@ body{font-family:'Apple SD Gothic Neo','Malgun Gothic',Arial,sans-serif;backgrou
     <button class="tab" onclick="sw('country')">국가별 현황</button>
     <button class="tab" onclick="sw('west')">서양권 상세</button>
     <button class="tab" onclick="sw('budget')">💰 수익 예산</button>
+    <button class="tab" onclick="sw('holidays')">🗓 해외 공휴일</button>
   </div>
 
   <!-- ① 연간 추이 -->
@@ -316,6 +341,24 @@ body{font-family:'Apple SD Gothic Neo','Malgun Gothic',Arial,sans-serif;backgrou
       <div id="b_insights" style="display:flex;flex-direction:column;gap:10px;font-size:13px;color:#3D2B1A;line-height:1.7"></div>
     </div>
   </div>
+  <div id="holidays" class="pnl">
+    <div class="card" style="background:linear-gradient(135deg,#3D2B1A 0%,#5C3D20 100%);border:none;color:#fff;margin-bottom:20px">
+      <div class="ctitle" style="color:#B8A878">2026 가격 전략 포인트 — 해외 공휴일 기반</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px">
+        <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:12px 14px"><div style="font-size:11px;color:#F9C74F;font-weight:700;margin-bottom:6px">🔥 최성수기 — 요금 MAX</div><div style="font-size:12px;line-height:1.9;color:#fff">2월 중순 — 중국&#xB7;대만 춘절<br>4/29–5/6 — 일본 골든위크<br>10/1–10/7 — 중국 국경절<br>9/19–9/23 — 일본 실버위크 ★</div></div>
+        <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:12px 14px"><div style="font-size:11px;color:#A8DADC;font-weight:700;margin-bottom:6px">📈 보조 성수기 — 요금 UP</div><div style="font-size:12px;line-height:1.9;color:#fff">3월 — 일본 봄방학&#xB7;졸업여행<br>4/3–6 — 유럽 부활절<br>5/1–5 — 중국 노동절 황금연휴<br>8/8–16 — 일본 오봉</div></div>
+        <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:12px 14px"><div style="font-size:11px;color:#FFB3C1;font-weight:700;margin-bottom:6px">📊 비수기 — 프로모션 고려</div><div style="font-size:12px;line-height:1.9;color:#fff">1월 초 — 춘절 前 침체기<br>6월 중순 이후 — 연휴 희박<br>11월 — 동아시아 연휴 없음<br>12월 초중순 — 연말 전 공백</div></div>
+        <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:12px 14px"><div style="font-size:11px;color:#C3F584;font-weight:700;margin-bottom:6px">⭐ 2026 특이사항</div><div style="font-size:12px;line-height:1.9;color:#fff">일본 실버위크 5연휴 (9/19–23)<br>→ 2015년 이후 11년 만!<br>중국 춘절 9일 역대 최장<br>→ 2월 피크 예년보다 강함</div></div>
+      </div>
+    </div>
+    <div class="card" style="padding:16px 20px">
+      <div class="ctitle" style="margin-bottom:10px">국가 그룹 필터</div>
+      <div class="hol-filter" id="hol-filters"></div>
+      <div class="leg" style="margin-top:8px;margin-bottom:0"><span><b style="background:#FCA5A5"></b>여행 영향 높음</span><span><b style="background:#FDE68A"></b>여행 영향 중간</span><span><b style="background:#D1D5DB"></b>여행 영향 낮음</span></div>
+    </div>
+    <div id="hol-list"></div>
+  </div>
+
 </div>
 <div class="footer">출처: 한국관광공사 방한 외래관광객 통계 · 2026년 3–12월은 예측치 · CF 호텔 내부 참고용</div>
 
@@ -432,7 +475,7 @@ buildProjChart(curRate);
 function setScen(r){curRate=r;document.querySelectorAll('.scen-btn').forEach(b=>b.classList.toggle('on',b.textContent.includes((r*100).toFixed(0))));updateAll(r);}
 function onSlider(v){curRate=v/100;document.querySelectorAll('.scen-btn').forEach(b=>b.classList.remove('on'));updateAll(curRate);}
 function sw(id){
-  const ids=['annual','proj','season','country','west','budget'];
+  const ids=['annual','proj','season','country','west','budget','holidays'];
   document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('on',ids[i]===id));
   document.querySelectorAll('.pnl').forEach(p=>p.classList.toggle('on',p.id===id));
 }
@@ -601,6 +644,147 @@ function setBStrat(s, btn){
 
 // 초기 실행
 updateBudget();
+
+const HOL=[
+  /* ──── 1월 ──── */
+  {m:0,c:'일본',r:'ea',n:'정월 연휴',imp:'high',d:'12/26–1/4 약 9일',note:'일본 3대 연휴. 귀성 러시 후 해외여행 전환. 1/5–6일 서울 도착 피크.'},
+  {m:0,c:'미국',r:'wt',n:'MLK Day',imp:'low',d:'1/19(월) 3일 연휴',note:'3일 연휴. 미국 내 여행 중심, 한국행 직접 영향 낮음.'},
+  {m:0,c:'호주',r:'au',n:'Australia Day',imp:'low',d:'1/26(월)',note:'자국 축제 중심. 한국행 수요 소폭.'},
+  {m:0,c:'뉴질랜드',r:'au',n:'New Year 4일 연휴',imp:'low',d:'1/1(목)–1/4(일) 4일',note:'뉴질랜드 신년. 여름방학 시즌. 일부 한국 여행.'},
+  /* ──── 2월 ──── */
+  {m:1,c:'중국',r:'ea',n:'춘절 ★역대 최장 9일',imp:'high',d:'2/15(일)–2/23(월) 9일',note:'2026 역대 최장 9일. 해외여행 수요 폭발적 증가. 서울 2/15–23 예약 피크.'},
+  {m:1,c:'대만',r:'ea',n:'음력설 연휴',imp:'high',d:'2/14(토)–2/22(일) 9일',note:'대만 최대 연휴. 중국과 동반 수요. 해외여행 비중 높음.'},
+  {m:1,c:'홍콩',r:'ea',n:'구정 연휴',imp:'mid',d:'2/17(화)–2/19(목) 3일',note:'단기이나 홍콩→한국 단기 여행 활발.'},
+  {m:1,c:'베트남',r:'sea',n:'뗏(Tết) 연휴',imp:'high',d:'2/17(화) 전후 7–10일',note:'베트남 최대 명절. 도시 인구 귀향 후 해외여행 전환. 한국행 수요 증가.'},
+  {m:1,c:'싱가포르',r:'sea',n:'구정 연휴',imp:'mid',d:'2/17(화)–2/18(수) 2일',note:'싱가포르 공휴일 2일. 근거리 해외여행 수요.'},
+  {m:1,c:'말레이시아',r:'sea',n:'구정 연휴',imp:'mid',d:'2/17(화)–2/18(수) 2일',note:'말레이시아 화인 구정. 근거리 해외 여행 수요.'},
+  {m:1,c:'뉴질랜드',r:'au',n:'Waitangi Day',imp:'low',d:'2/6(금) 3일 연휴',note:'국경일. 금요일→ 3일 연휴. 한국행 소수.'},
+  {m:1,c:'미국',r:'wt',n:"Presidents' Day",imp:'low',d:'2/16(월) 3일 연휴',note:'3일 연휴. 미국인 한국 여행 성수기 아님.'},
+  /* ──── 3월 ──── */
+  {m:2,c:'일본',r:'ea',n:'봄방학·졸업여행 시즌',imp:'mid',d:'3월 중순–말',note:'학생 졸업여행 + 봄 여행 시즌. 벚꽃과 맞물려 서울 방문 증가.'},
+  {m:2,c:'대만',r:'ea',n:'228 평화기념일 연휴',imp:'mid',d:'2/27(금)–3/1(일) 3일',note:'3일 연휴. 대만인 단기 해외여행 선호.'},
+  {m:2,c:'인도네시아',r:'sea',n:'이슬람 단식월(라마단) 시작',imp:'mid',d:'3월 초 예정',note:'라마단 기간 이동 자제. 단, 이드(Eid) 연휴에 대규모 이동.'},
+  {m:2,c:'말레이시아',r:'sea',n:'라마단 시작',imp:'mid',d:'3월 초 예정',note:'라마단 기간. Eid al-Fitr 연휴 전 예약 급증.'},
+  {m:2,c:'필리핀',r:'sea',n:'이드 알피트르(Eid al-Fitr) ★',imp:'high',d:'3/20(금)–3/22(일) 3일 연휴',note:'필리핀 공식 공휴일. 3/20 금요일→ 3일 연휴. 필리피노 해외여행 피크.'},
+  /* ──── 4월 ──── */
+  {m:3,c:'인도네시아',r:'sea',n:'이드 알피트르(Eid al-Fitr) ★★★',imp:'high',d:'약 3/20–3/29 최대 10일 (정부 연장 포함)',note:'인도네시아 연중 최대 연휴. 자카르타 등 도시 인구 귀향 후 해외여행 전환. 한국행 증가.'},
+  {m:3,c:'말레이시아',r:'sea',n:'이드 알피트르(Eid al-Fitr)',imp:'high',d:'약 3/20–3/22 (전후 연차 활용 시 최대 1주)',note:'말레이시아 최대 명절. 귀향 후 해외여행 전환. 한국 방문 증가.'},
+  {m:3,c:'중국',r:'ea',n:'청명절(Qingming)',imp:'mid',d:'4/4(토)–4/6(월) 3일',note:'성묘 후 나들이 문화. 일부 해외 출국.'},
+  {m:3,c:'대만',r:'ea',n:'아동절·청명절 연휴',imp:'mid',d:'4/3(금)–4/6(월) 4일',note:'4일 연휴. 대만 가족 여행 수요.'},
+  {m:3,c:'태국',r:'sea',n:'쏭끄란(Songkran) ★태국 새해',imp:'high',d:'4/11(토)–4/15(수) 5일 연휴',note:'태국 연중 최대 연휴. 4/13–15 공식, 전후 포함 5일. 해외여행보다 국내 이동 중심이나 한국 관심 높음.'},
+  {m:3,c:'필리핀',r:'sea',n:'성주간(Holy Week)',imp:'high',d:'4/2(목)–4/5(일) 4일',note:'필리핀 성주간. Good Thursday+Good Friday 공휴일. 가족 여행 수요. 한국행 인기 목적지.'},
+  {m:3,c:'독일',r:'wt',n:'부활절 연휴',imp:'mid',d:'4/3(금)–4/6(월) 4일',note:'독·영·프 공통 부활절. 유럽인 아시아 여행 피크 시작.'},
+  {m:3,c:'영국',r:'wt',n:'부활절 (Bank Holiday)',imp:'mid',d:'4/3(금)–4/6(월) 4일',note:'UK Bank Holiday. 영국인 장거리 여행 시즌.'},
+  {m:3,c:'프랑스',r:'wt',n:'부활절 + 봄방학',imp:'mid',d:'4/3–6 + 봄방학 약 2주',note:'봄방학과 맞물려 장기 여행 수요.'},
+  {m:3,c:'호주',r:'au',n:'ANZAC Day',imp:'low',d:'4/25(토)→Observed 4/27(월)',note:'호주 ANZAC Day. 주말→월요일 대체. 아시아 단기 여행 소폭.'},
+  {m:3,c:'뉴질랜드',r:'au',n:'부활절 + ANZAC Day',imp:'low',d:'4/3–4/6 (부활절) / 4/27(월) ANZAC',note:'4일 부활절 + ANZAC Day. 가족 여행. 한국행 소수.'},
+  /* ──── 5월 ──── */
+  {m:4,c:'일본',r:'ea',n:'골든위크(GW) ★연중 최대',imp:'high',d:'4/29(수)–5/6(수) 8일 / 연차 최대 10일',note:'일본 연중 최대 해외여행 시즌. 한국행 최인기. 항공·호텔 조기 매진.'},
+  {m:4,c:'중국',r:'ea',n:'노동절 황금연휴',imp:'high',d:'5/1(금)–5/5(화) 5일',note:'중국 3대 황금연휴. 한국행 항공 조기 매진 빈번.'},
+  {m:4,c:'대만',r:'ea',n:'노동절',imp:'mid',d:'5/1(금)–5/3(일) 3일',note:'3일 연휴. 근거리 해외여행 수요.'},
+  {m:4,c:'베트남',r:'sea',n:'통일기념일·노동절',imp:'mid',d:'4/30(목)–5/1(금) 2일',note:'통일기념일(4/30)+노동절(5/1) 연속. 베트남 황금연휴. 해외여행 증가.'},
+  {m:4,c:'필리핀',r:'sea',n:'노동절',imp:'low',d:'5/1(금) 1일',note:'1일 공휴일. 단기 여행 소폭.'},
+  {m:4,c:'싱가포르',r:'sea',n:'노동절 + 석가탄신일',imp:'mid',d:'5/1(금) / 5/27(수)',note:'노동절 + 석가탄신일. 근거리 한국 여행 수요.'},
+  {m:4,c:'인도네시아',r:'sea',n:'이드 알아드하(Eid al-Adha)',imp:'mid',d:'5/27(수) 전후 3–5일',note:'인도네시아 두 번째 대명절. 귀향 이동 후 일부 해외여행.'},
+  {m:4,c:'말레이시아',r:'sea',n:'이드 알아드하(Eid al-Adha)',imp:'mid',d:'5/27(수) 전후 3–5일',note:'말레이시아 공식 공휴일. 해외여행 전환 수요 일부.'},
+  {m:4,c:'독일',r:'wt',n:'노동절 + 승천절',imp:'low',d:'5/1(금) / 5/14(목)',note:'5/14 징검다리 → 5/15 연차 시 4일 연휴.'},
+  {m:4,c:'미국',r:'wt',n:'Memorial Day',imp:'low',d:'5/25(월) 3일 연휴',note:'미국 여름 여행 시즌 시작. 국내·유럽 중심.'},
+  /* ──── 6월 ──── */
+  {m:5,c:'중국',r:'ea',n:'단오절(Dragon Boat)',imp:'mid',d:'6/19(금)–6/21(일) 3일',note:'3일 연휴. 중국인 단기 해외여행. 항공 수요 소폭 증가.'},
+  {m:5,c:'대만',r:'ea',n:'단오절',imp:'mid',d:'6/19(금)–6/21(일) 3일',note:'대만도 동일 날짜 3일 연휴.'},
+  {m:5,c:'홍콩',r:'ea',n:'단오절',imp:'low',d:'6/19(금) 1일',note:'홍콩 1일 공휴일. 단기 여행 일부.'},
+  {m:5,c:'필리핀',r:'sea',n:'독립기념일',imp:'low',d:'6/12(금) 3일 연휴',note:'6/12 독립기념일. 3일 연휴. 국내 여행 중심.'},
+  {m:5,c:'뉴질랜드',r:'au',n:"King's Birthday",imp:'low',d:'6/1(월) 3일 연휴',note:'국왕 생일. 3일 연휴. 겨울 여행.'},
+  /* ──── 7월 ──── */
+  {m:6,c:'미국',r:'wt',n:'Independence Day',imp:'mid',d:'7/4(토)→Observed 7/3(금) 3일',note:'7/3 금요일 대체. 미국인 여름 해외여행 피크.'},
+  {m:6,c:'일본',r:'ea',n:'여름방학 시작',imp:'mid',d:'7월 하순부터',note:'학생 여름방학. 가족 단위 해외여행 증가.'},
+  {m:6,c:'프랑스',r:'wt',n:'혁명기념일(Bastille)',imp:'low',d:'7/14(화)',note:'자국 휴가철 시작.'},
+  {m:6,c:'호주',r:'au',n:'겨울방학',imp:'mid',d:'7월 중 약 2주',note:'호주 겨울방학. 아시아 여행 수요 증가.'},
+  {m:6,c:'뉴질랜드',r:'au',n:'Matariki (마오리 신년)',imp:'mid',d:'7/10(금) 3일 연휴',note:'마오리 신년 공휴일. 금요일→3일 연휴. 뉴질랜드 여름방학과 겹쳐 해외여행 수요.'},
+  {m:6,c:'싱가포르',r:'sea',n:'여름방학',imp:'mid',d:'5/30–6/28 학교 방학',note:'싱가포르 학교 방학. 근거리 한국 여행 수요.'},
+  /* ──── 8월 ──── */
+  {m:7,c:'일본',r:'ea',n:'오봉(Obon) ★3대 연휴',imp:'high',d:'피크 8/8–8/16 / 핵심 8/13–16',note:'일본 3대 연휴. 2026 주말과 맞물려 이동 극심. 한국 최인기 목적지.'},
+  {m:7,c:'중국',r:'ea',n:'여름방학',imp:'mid',d:'7말–8말',note:'학생 여름방학. 단체 관광객 증가.'},
+  {m:7,c:'싱가포르',r:'sea',n:'건국기념일',imp:'mid',d:'8/9(일)→8/10(월) 3일 연휴',note:'싱가포르 건국기념일. 대체 월요일. 한국 인기 여행지.'},
+  {m:7,c:'인도네시아',r:'sea',n:'독립기념일',imp:'mid',d:'8/17(월) 연휴',note:'인도네시아 독립기념일. 8/17 월요일. 장기 여행 수요.'},
+  {m:7,c:'태국',r:'sea',n:'왕비탄신일',imp:'low',d:'8/12(수)',note:'공휴일. 단기 연휴.'},
+  {m:7,c:'영국',r:'wt',n:'Summer Bank Holiday',imp:'low',d:'8/31(월)',note:'영국 뱅크 홀리데이. 아시아 여행 소수.'},
+  /* ──── 9월 ──── */
+  {m:8,c:'일본',r:'ea',n:'실버위크 ★★ 11년만 5연휴',imp:'high',d:'9/19(토)–9/23(수) 5일 / 연차 최대 9일',note:'2026 11년 만! 골든위크급 한국 방문 급증 예상. 9/24–25 연차 시 최대 9연휴.'},
+  {m:8,c:'중국',r:'ea',n:'중추절',imp:'low',d:'9/25(금) 1일',note:'1일 단독. 국경절과 별도.'},
+  {m:8,c:'대만',r:'ea',n:'중추절·교사의날 연휴',imp:'mid',d:'9/25(금)–9/28(월) 4일',note:'4일 연휴. 한국 단기여행 인기.'},
+  {m:8,c:'베트남',r:'sea',n:'건국기념일',imp:'low',d:'9/2(수) 1일',note:'베트남 건국기념일. 1일 공휴.'},
+  {m:8,c:'미국',r:'wt',n:'Labor Day',imp:'low',d:'9/7(월) 3일 연휴',note:'여름 마지막 연휴. 아시아 여행 소수.'},
+  /* ──── 10월 ──── */
+  {m:9,c:'중국',r:'ea',n:'국경절 황금연휴 ★연중 최대',imp:'high',d:'10/1(목)–10/7(수) 7일',note:'중국 최대 황금연휴. 연간 최대 해외여행. 계절지수 122와 완벽 일치. 최고가 필수.'},
+  {m:9,c:'일본',r:'ea',n:'체육의 날',imp:'low',d:'10/12(월) 3일 연휴',note:'3일 연휴. 국내 행사 중심.'},
+  {m:9,c:'대만',r:'ea',n:'쌍십절 국경일',imp:'mid',d:'10/9(금)–10/11(일) 3일',note:'3일 연휴. 대만인 해외 단기 여행.'},
+  {m:9,c:'싱가포르',r:'sea',n:'디파발리(Deepavali)',imp:'mid',d:'10/20(화)',note:'힌두 명절. 싱가포르 공휴일. 근거리 여행 소폭.'},
+  {m:9,c:'말레이시아',r:'sea',n:'디파발리(Deepavali)',imp:'mid',d:'10/20(화)',note:'말레이시아 공휴일. 한국 여행 수요 일부.'},
+  {m:9,c:'독일',r:'wt',n:'독일 통일의 날',imp:'low',d:'10/3(토) — 대체 없음',note:'토요일. 가을 여행 시즌.'},
+  {m:9,c:'호주',r:'au',n:'봄방학',imp:'mid',d:'10월 중 약 2주',note:'호주 봄방학. 아시아 여행 수요.'},
+  {m:9,c:'뉴질랜드',r:'au',n:'Labour Day',imp:'low',d:'10/26(월) 3일 연휴',note:'3일 연휴. 봄 여행 시즌.'},
+  /* ──── 11월 ──── */
+  {m:10,c:'태국',r:'sea',n:'러이끄라통(Loy Krathong)',imp:'mid',d:'11/24–11/25',note:'태국 등불 축제. 공식 공휴일은 아니나 여행 수요 높음. 한국에서 태국 역방문 시즌.'},
+  {m:10,c:'필리핀',r:'sea',n:'본디파시오 데이',imp:'low',d:'11/30(월) 3일 연휴',note:'국민 영웅 기념일. 3일 연휴. 해외 여행 일부.'},
+  {m:10,c:'미국',r:'wt',n:'Thanksgiving',imp:'low',d:'11/26(목) 전후 4–5일',note:'미국 가족 명절. 한국행 수요 거의 없음.'},
+  {m:10,c:'일본',r:'ea',n:'문화의날·근로감사의날',imp:'low',d:'11/3(화) / 11/21–23(월)',note:'3일 연휴 2회. 가을 여행 소폭.'},
+  /* ──── 12월 ──── */
+  {m:11,c:'일본',r:'ea',n:'연말 연시 준비',imp:'mid',d:'12/26(금) 출발 시작',note:'연말 여행 시작. 1월 정월연휴 연계 수요 발생.'},
+  {m:11,c:'필리핀',r:'sea',n:'크리스마스 시즌',imp:'mid',d:'12/24(목)–12/26(토) + 12/31',note:'필리핀 최대 명절. 가족 중심이나 연말 해외여행도 증가.'},
+  {m:11,c:'인도네시아',r:'sea',n:'크리스마스',imp:'low',d:'12/25(금)–12/26(토)',note:'공식 공휴일. 한국 여행 수요 소폭.'},
+  {m:11,c:'호주',r:'au',n:'여름방학 + Christmas',imp:'high',d:'12월 중순–1월 말 약 6주',note:'호주 여름방학 + 크리스마스. 아시아 여행 성수기. 한국 방문 수요 증가.'},
+  {m:11,c:'뉴질랜드',r:'au',n:'여름방학 + Christmas',imp:'mid',d:'12월 중순–1월 말 + 12/25–12/28',note:'뉴질랜드 여름방학 + 크리스마스 4일. 아시아 여행 성수기.'},
+  {m:11,c:'미국',r:'wt',n:'Christmas',imp:'low',d:'12/25(금)–12/27(일) 3일',note:'가족 명절. 미국인 한국 크리스마스 여행 소수.'},
+  {m:11,c:'영국',r:'wt',n:'Christmas + Boxing Day',imp:'low',d:'12/25(금)–12/28(월) 4일',note:'4일 연휴. 일부 영국인 아시아 여행.'},
+  {m:11,c:'독일',r:'wt',n:'크리스마스',imp:'low',d:'12/25(금)–12/27(일) 3일',note:'가족 중심. 연말 아시아 여행 소수.'},
+];
+const CFLAG={'일본':'🇯🇵','중국':'🇨🇳','대만':'🇹🇼','미국':'🇺🇸','홍콩':'🇭🇰','베트남':'🇻🇳','태국':'🇹🇭','필리핀':'🇵🇭','인도네시아':'🇮🇩','말레이시아':'🇲🇾','싱가포르':'🇸🇬','호주':'🇦🇺','뉴질랜드':'🇳🇿','독일':'🇩🇪','영국':'🇬🇧','프랑스':'🇫🇷'};
+const REGS={ea:{label:'동아시아',bg:'#2563EB'},sea:{label:'동남아시아',bg:'#059669'},wt:{label:'서양권',bg:'#EA580C'},au:{label:'호주·뉴질랜드',bg:'#7C3AED'}};
+let activeF=new Set(['ea','sea','wt','au']);
+function buildHolFilters(){
+  var el=document.getElementById('hol-filters');el.innerHTML='';
+  var all=document.createElement('button');all.className='hol-tag';
+  all.style.cssText='background:#3D2B1A;color:#fff;border-color:#3D2B1A;font-weight:700';
+  all.textContent='전체';
+  all.onclick=function(){activeF=new Set(['ea','sea','wt','au']);document.querySelectorAll('.hol-tag[data-r]').forEach(function(b){b.style.background=REGS[b.dataset.r].bg;b.style.color='#fff';b.style.borderColor=REGS[b.dataset.r].bg;});renderHolList();};
+  el.appendChild(all);
+  Object.keys(REGS).forEach(function(k){
+    var cfg=REGS[k];
+    var btn=document.createElement('button');btn.className='hol-tag';btn.dataset.r=k;
+    btn.style.cssText='background:'+cfg.bg+';color:#fff;border-color:'+cfg.bg+';font-weight:600';
+    btn.textContent=cfg.label;
+    btn.onclick=function(){if(activeF.has(k)){activeF.delete(k);btn.style.background='#fff';btn.style.color='#888';btn.style.borderColor='#D3D1C7';}else{activeF.add(k);btn.style.background=cfg.bg;btn.style.color='#fff';btn.style.borderColor=cfg.bg;}renderHolList();};
+    el.appendChild(btn);
+  });
+}
+function idxBC(v){return v>=110?'#1E3A8A':v>=95?'#3B82F6':v>=75?'#93C5FD':'#DBEAFE';}
+function renderHolList(){
+  var c=document.getElementById('hol-list');c.innerHTML='';
+  var ord={high:0,mid:1,low:2};
+  var MN=['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+  MN.forEach(function(mn,mi){
+    var items=HOL.filter(function(h){return h.m===mi&&activeF.has(h.r);}).sort(function(a,b){return ord[a.imp]-ord[b.imp];});
+    if(!items.length)return;
+    var iv=avg[mi];
+    var dv=document.createElement('div');dv.className='card';
+    var pct=Math.min(100,(iv/140)*100);
+    var fire=iv>=110?' 🔥':iv<85?' ❄️':'';
+    dv.innerHTML='<div class="hol-month-header"><div class="hol-month-label">'+mn+'</div><div class="hol-idx-bar" style="background:'+idxBC(iv)+';width:'+pct+'%"></div><div class="hol-idx-num">계절지수 '+iv+fire+'</div></div><div class="hol-items" id="hi'+mi+'"></div>';
+    c.appendChild(dv);
+    var ic={high:'imp-high',mid:'imp-mid',low:'imp-low'};
+    var il={high:'여행영향 높음',mid:'여행영향 중간',low:'여행영향 낮음'};
+    items.forEach(function(h){
+      var eld=document.createElement('div');eld.className='hol-item hol-type-'+h.r;
+      var flag=CFLAG[h.c]||'🌐';
+      eld.innerHTML='<div class="hol-flag">'+flag+'</div><div class="hol-body"><div class="hol-name">'+h.c+' — '+h.n+'<span class="hol-impact '+ic[h.imp]+'">'+il[h.imp]+'</span></div><div class="hol-dates">📅 '+h.d+'</div><div class="hol-note">'+h.note+'</div></div>';
+      document.getElementById('hi'+mi).appendChild(eld);
+    });
+  });
+}
+buildHolFilters();
+renderHolList();
+
 </script>
 </body>
 </html>
